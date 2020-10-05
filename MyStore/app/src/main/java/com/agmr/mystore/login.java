@@ -10,7 +10,7 @@ import android.widget.ImageButton;
 
 import java.nio.FloatBuffer;
 
-public class login extends AppCompatActivity {
+public class Login extends AppCompatActivity {
 private ImageButton ingresarflecha;
 private Button registrasebtn;
     @Override

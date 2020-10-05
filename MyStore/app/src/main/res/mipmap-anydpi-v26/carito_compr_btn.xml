@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<adaptive-icon  xmlns:android="http://schemas.android.com/apk/res/android" android:shape="oval">
+    <background android:drawable="@color/carito_compr_btn_background"/>
+    <foreground android:drawable="@mipmap/carito_compr_btn_foreground"/>
+</adaptive-icon>

@@ -2,28 +2,37 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/inicio_product"
         android:title="@string/inicio"
-android:icon="@color/colorAccent"
+        android:icon="@drawable/casa_inicio_home"
+
         />
 
     <item
+        android:id="@+id/mensage"
         android:title="mensajes"
-        android:icon="@color/colorAccent"
+        android:icon="@drawable/mensajes"
+
         />
 
     <item
+        android:id="@+id/favoritos"
         android:title="favoritos"
-        android:icon="@color/colorAccent"
+        android:icon="@drawable/favoritos"
+
+
         />
 
     <item
+        android:id="@+id/notificaciones"
         android:title="ntificaciones"
-        android:icon="@color/colorAccent"
+        android:icon="@drawable/notificaciones"
         />
 
     <item
+        android:id="@+id/barras"
         android:title="barra"
-        android:icon="@color/colorAccent"
+        android:icon="@drawable/barras"
         />
 
 </menu>
