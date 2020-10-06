@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.agmr.mystore.Login;
-import com.agmr.mystore.Menu_Administrador;
+import com.agmr.mystore.MenuAdministrador;
 import com.agmr.mystore.R;
 
 /**
@@ -77,7 +77,7 @@ public class menu_barras extends Fragment {
        admin.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
-               Intent intent=new Intent(getContext(), Menu_Administrador.class);
+               Intent intent=new Intent(getContext(), MenuAdministrador.class);
                startActivity(intent);
            }
        });
