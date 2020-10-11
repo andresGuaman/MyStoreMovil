@@ -3,8 +3,13 @@ package com.agmr.mystore;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+
+import android.app.Activity;
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.MenuItem;
+import android.view.View;
+
 import com.agmr.mystore.fracments.favoritos;
 import com.agmr.mystore.fracments.lista_productos;
 import com.agmr.mystore.fracments.mensajes;
@@ -21,9 +26,10 @@ public class MenuPrincipal extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_principal);
 
-        bottomNavigationView = (BottomNavigationView) findViewById(R.id.nav);
+        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(naviListener);
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new lista_productos()).commit();
+        getSupportFragmentManager().beginTransaction().replace(
+                R.id.fragment_container, new lista_productos()).commit();
 
     }
 
@@ -48,8 +54,9 @@ public class MenuPrincipal extends AppCompatActivity {
                         case R.id.barras:
                             selectorFracment = new menu_barras();
                     }
-                    assert selectorFracment != null;
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectorFracment).commit();
+                    getSupportFragmentManager().beginTransaction().replace(
+                            R.id.fragment_container,
+                            selectorFracment).commit();
                     return true;
                 }
 

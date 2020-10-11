@@ -1,6 +1,6 @@
 package com.agmr.mystore.modelo;
 
-public class Direccion {
+public class direccion {
 
     private String calle1;
     private String calle2;
@@ -9,7 +9,7 @@ public class Direccion {
     private String logitud;
     private String referencia;
 
-    public Direccion(String calle1, String calle2, String ciudad, String latitud, String logitud, String referencia) {
+    public direccion(String calle1, String calle2, String ciudad, String latitud, String logitud, String referencia) {
         this.calle1 = calle1;
         this.calle2 = calle2;
         this.ciudad = ciudad;
@@ -18,7 +18,7 @@ public class Direccion {
         this.referencia = referencia;
     }
 
-    public Direccion() {
+    public direccion() {
     }
 
     public String getCalle1() {

@@ -1,5 +1,6 @@
 package com.agmr.mystore.fracments;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,8 +8,22 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
+import com.agmr.mystore.AdapterImg;
 import com.agmr.mystore.R;
+import com.agmr.mystore.modelo.producto;
+import com.agmr.mystore.service.PostServiceProducto;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +38,11 @@ public class lista_productos extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
+    private ListView lvImgen;
+    private ArrayList<producto> imagesProduco;
+    private ArrayAdapter arrayAdapter;
+    View vista;
+
     private String mParam1;
     private String mParam2;
 
@@ -61,6 +81,43 @@ public class lista_productos extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_lista_productos, container, false);
+        vista = inflater.inflate(R.layout.fragment_lista_productos, container, false);
+        init();
+        return vista;
     }
+
+    public void init() {
+        imagesProduco = new ArrayList<>();
+        lvImgen = vista.findViewById(R.id.list_productos_menu);
+        arrayAdapter = new AdapterImg(lista_productos.super.getActivity(), imagesProduco);
+        lvImgen.setAdapter(arrayAdapter);
+        getImgs();
+    }
+
+    public void getImgs() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://192.168.56.1:9898")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        final PostServiceProducto postServiceProducto = retrofit.create(PostServiceProducto.class);
+        Call<List<producto>> call = postServiceProducto.getProducto();
+        call.enqueue(new Callback<List<producto>>() {
+            @Override
+            public void onResponse(Call<List<producto>> call, Response<List<producto>> response) {
+                assert response.body() != null;
+                for (producto pro : response.body()) {
+                    imagesProduco.add(new producto(pro.getPro_foto(), pro.getPro_descripcion(), pro.getPro_costo(), pro.getPro_precio(), pro.getPro_stock(), pro.getPro_codigo_barra(), pro.getPro_marca(), pro.getPro_modelo()));
+                }
+                arrayAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<List<producto>> call, Throwable t) {
+
+            }
+        });
+
+    }
+
+
 }

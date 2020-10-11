@@ -1,6 +1,6 @@
 package com.agmr.mystore.modelo;
 
-public class DetalleFactura {
+public class detalleFactura {
     private int cantidad;
     private int descuento;
     private int iva;
@@ -9,7 +9,7 @@ public class DetalleFactura {
     private double total;
     private double valor_unitario;
 
-    public DetalleFactura(int cantidad, int descuento, int iva, double subtotal, double valor_total, double total, double valor_unitario) {
+    public detalleFactura(int cantidad, int descuento, int iva, double subtotal, double valor_total, double total, double valor_unitario) {
         this.cantidad = cantidad;
         this.descuento = descuento;
         this.iva = iva;
@@ -19,7 +19,7 @@ public class DetalleFactura {
         this.valor_unitario = valor_unitario;
     }
 
-    public DetalleFactura() {
+    public detalleFactura() {
     }
 
     public int getCantidad() {

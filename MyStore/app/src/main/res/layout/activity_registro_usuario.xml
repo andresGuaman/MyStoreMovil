@@ -4,399 +4,123 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#cfd8dc">
+    android:background="#E4E4E4"
+    tools:context=".RegistroUsuario">
 
-    <LinearLayout
-        android:id="@+id/Header"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="#4FB9F4"
+    <View
+        android:id="@+id/view"
+        android:layout_width="406dp"
+        android:layout_height="518dp"
+        android:layout_marginTop="32dp"
+        android:background="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <ImageButton
-                android:id="@+id/btnRegresar"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="#4FB9F4"
-                app:srcCompat="@drawable/abc_vector_test" />
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textColor="#FFF"
-                android:text="@string/registro"
-                android:textSize="32dp" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/datos_usuario"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="#FFF"
-        android:gravity="center_horizontal"
-        android:layout_marginTop="16dp"
-        android:paddingEnd="16dp"
-        android:paddingStart="16dp"
-        android:paddingBottom="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Header">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="16dp"
-            android:background="#f1f5f7"
-            android:gravity="center">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <Button
-                    android:id="@+id/btnFoto"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:background="@android:drawable/ic_menu_camera"
-                    android:padding="3dp"
-                    android:textSize="25sp"
-                    android:text="CLICK"
-                    android:textColor="#000000"
-                    android:textStyle="bold">
-                </Button>
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="16dp"
-            android:background="#f1f5f7"
-            android:gravity="center">
-
-            <TextView
-                android:id="@+id/usuario"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_weight="1"
-                android:background="@drawable/ic_user"
-                android:backgroundTint="#000" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <EditText
-                    android:id="@+id/txtUsuario"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text=""
-                    android:gravity="center"
-                    android:hint="Usuario"/>
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/estado_usuario"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:layout_weight="1"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/ic_asterisk"
-                android:backgroundTint="#FF9800" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="16dp"
-            android:background="#f1f5f7"
-            android:gravity="center">
-
-            <TextView
-                android:id="@+id/pass"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_weight="1"
-                android:background="@drawable/ic_pass"
-                android:backgroundTint="#000" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <EditText
-                    android:id="@+id/txtPass"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="textWebPassword"
-                    android:text=""
-                    android:gravity="center"
-                    android:hint="Contraseña"/>
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/estado_pass"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:layout_weight="1"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/ic_asterisk"
-                android:backgroundTint="#FF9800" />
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/datos_persona"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="#FFF"
-        android:gravity="center_horizontal"
-        android:layout_marginTop="16dp"
-        android:paddingEnd="16dp"
-        android:paddingStart="16dp"
-        android:paddingBottom="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/datos_usuario">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="16dp"
-            android:background="#f1f5f7"
-            android:gravity="center">
-
-            <TextView
-                android:id="@+id/nombre"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:layout_weight="1"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:text="N"
-                android:backgroundTint="#000" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <EditText
-                    android:id="@+id/txtNombre"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text=""
-                    android:gravity="center"
-                    android:hint="Ingrese su Nombre"/>
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/estado_nombre"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:layout_weight="1"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/ic_asterisk"
-                android:backgroundTint="#FF9800" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="16dp"
-            android:background="#f1f5f7"
-            android:gravity="center">
-
-            <TextView
-                android:id="@+id/apellido"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:layout_weight="1"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:text="A"
-                android:backgroundTint="#000" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <EditText
-                    android:id="@+id/txtApellido"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text=""
-                    android:gravity="center"
-                    android:hint="Ingrese su Apellido"/>
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/estado_apellido"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:layout_weight="1"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/ic_asterisk"
-                android:backgroundTint="#FF9800" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="16dp"
-            android:background="#f1f5f7"
-            android:gravity="center">
-
-            <TextView
-                android:id="@+id/telefono"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:layout_weight="1"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/ic_phone"
-                android:backgroundTint="#000" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <EditText
-                    android:id="@+id/txtTelefono"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="phone"
-                    android:text=""
-                    android:gravity="center"
-                    android:hint="Teléfono / Celular"/>
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/estado_telefono"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:layout_weight="1"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/ic_asterisk"
-                android:backgroundTint="#FF9800" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="16dp"
-            android:background="#f1f5f7"
-            android:gravity="center">
-
-            <TextView
-                android:id="@+id/correo"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:layout_weight="1"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/ic_mail"
-                android:backgroundTint="#000" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <EditText
-                    android:id="@+id/txtCorreo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="textEmailAddress"
-                    android:text=""
-                    android:gravity="center"
-                    android:hint="Ingrese su Correo" />
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/estado_correo"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:layout_weight="1"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/ic_asterisk"
-                android:backgroundTint="#FF9800" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:orientation="vertical"
+    <Button
+        android:id="@+id/btn_guardar"
+        android:layout_width="257dp"
+        android:layout_height="54dp"
+        android:background="#FAFAFA"
+        android:text="Guardar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view" />
 
-        <Button
-            android:id="@+id/btnSiguiente"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#4FB9F4"
-            android:text="Siguiente" />
-    </LinearLayout>
+    <EditText
+        android:id="@+id/txt_password"
+        android:layout_width="339dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="12dp"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="@+id/view"
+        app:layout_constraintTop_toBottomOf="@+id/txt_usuario"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="34dp" />
 
+    <EditText
+        android:id="@+id/txt_usuario"
+        android:layout_width="339dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="12dp"
+        android:ems="10"
+        android:hint="usuario"
+        android:inputType="textPersonName"
+        app:layout_constraintTop_toBottomOf="@+id/txt_foto"
+        tools:layout_editor_absoluteX="34dp" />
+
+    <EditText
+        android:id="@+id/txt_nombre"
+        android:layout_width="150dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:hint="Nombre"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/view" />
+
+    <EditText
+        android:id="@+id/txt_apellido"
+        android:layout_width="150dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:hint="Apellido"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/txt_nombre"
+        app:layout_constraintTop_toTopOf="@+id/view" />
+
+    <EditText
+        android:id="@+id/txt_cedula"
+        android:layout_width="339dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="12dp"
+        android:ems="10"
+        android:hint="Cedula"
+        android:inputType="textPersonName"
+        app:layout_constraintTop_toBottomOf="@+id/txt_nombre"
+        tools:layout_editor_absoluteX="33dp" />
+
+    <EditText
+        android:id="@+id/txt_correo"
+        android:layout_width="339dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="12dp"
+        android:ems="10"
+        android:hint="Correo"
+        android:inputType="textPersonName"
+        app:layout_constraintTop_toBottomOf="@+id/txt_cedula"
+        tools:layout_editor_absoluteX="34dp" />
+
+    <EditText
+        android:id="@+id/txt_telefono"
+        android:layout_width="339dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="12dp"
+        android:ems="10"
+        android:hint="telefono"
+        android:inputType="textPersonName"
+        app:layout_constraintTop_toBottomOf="@+id/txt_correo"
+        tools:layout_editor_absoluteX="34dp" />
+
+    <EditText
+        android:id="@+id/txt_foto"
+        android:layout_width="339dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="12dp"
+        android:ems="10"
+        android:hint="Foto"
+        android:inputType="textPersonName"
+        app:layout_constraintTop_toBottomOf="@+id/txt_telefono"
+        tools:layout_editor_absoluteX="33dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

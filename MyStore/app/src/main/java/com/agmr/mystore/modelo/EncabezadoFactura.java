@@ -1,13 +1,13 @@
 package com.agmr.mystore.modelo;
 
-public class EncabezadoFactura {
+public class encabezadoFactura {
     private  double descuento;
     private String fecha;
     private double iva;
     private  double subtotal;
     private double total;
 
-    public EncabezadoFactura(double descuento, String fecha, double iva, double subtotal, double total) {
+    public encabezadoFactura(double descuento, String fecha, double iva, double subtotal, double total) {
         this.descuento = descuento;
         this.fecha = fecha;
         this.iva = iva;
@@ -15,7 +15,7 @@ public class EncabezadoFactura {
         this.total = total;
     }
 
-    public EncabezadoFactura() {
+    public encabezadoFactura() {
     }
 
     public double getDescuento() {

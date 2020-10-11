@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.agmr.mystore.Login;
-import com.agmr.mystore.MenuAdministrador;
+import com.agmr.mystore.Menu_Administrador;
 import com.agmr.mystore.R;
 
 /**
@@ -27,12 +27,12 @@ public class menu_barras extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
 
-
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
     Button iniciar_sesion, admin;
     View vista;
+
     public menu_barras() {
         // Required empty public constructor
     }
@@ -56,32 +56,33 @@ public class menu_barras extends Fragment {
         }
 
 
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-       vista=inflater.inflate(R.layout.fragment_menu_barras, container, false);
-       iniciar_sesion=(Button) vista.findViewById(R.id.btn_init_secion);
-       iniciar_sesion.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View view) {
-               Intent intent=new Intent(getContext(), Login.class);
-               startActivity(intent);
-           }
-       });
+        vista = inflater.inflate(R.layout.fragment_menu_barras, container, false);
 
-       admin=(Button)vista.findViewById(R.id.btn_admin);
-       admin.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View view) {
-               Intent intent=new Intent(getContext(), MenuAdministrador.class);
-               startActivity(intent);
-           }
-       });
-        return vista ;
+
+        iniciar_sesion = (Button) vista.findViewById(R.id.btn_init_secion);
+        iniciar_sesion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), Login.class);
+                startActivity(intent);
+            }
+        });
+
+        admin = (Button) vista.findViewById(R.id.btn_admin);
+        admin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), Menu_Administrador.class);
+                startActivity(intent);
+            }
+        });
+        return vista;
 
     }
 

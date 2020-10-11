@@ -3,7 +3,7 @@ package com.agmr.mystore.modelo;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Producto {
+public class producto {
     @SerializedName("pro_foto")
     @Expose
     private String pro_foto;
@@ -29,7 +29,7 @@ public class Producto {
     @Expose
     private String pro_modelo;
 
-    public Producto(String pro_foto, String pro_descripcion, double pro_costo, double pro_precio, int pro_stock, String pro_codigo_barra, String pro_marca, String pro_modelo) {
+    public producto(String pro_foto, String pro_descripcion, double pro_costo, double pro_precio, int pro_stock, String pro_codigo_barra, String pro_marca, String pro_modelo) {
         this.pro_foto = pro_foto;
         this.pro_descripcion = pro_descripcion;
         this.pro_costo = pro_costo;
@@ -40,7 +40,7 @@ public class Producto {
         this.pro_modelo = pro_modelo;
     }
 
-    public Producto() {
+    public producto() {
     }
 
     public String getPro_foto() {

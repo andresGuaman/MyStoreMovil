@@ -11,29 +11,33 @@ import android.widget.ImageButton;
 import java.nio.FloatBuffer;
 
 public class Login extends AppCompatActivity {
+    private ImageButton ingresarflecha;
+    private Button registrasebtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        Button btnRegistrar = (Button) findViewById(R.id.btn_registrarse);
-        ImageButton btnIngresar = (ImageButton) findViewById(R.id.btn_ingresar_sin_id);
-
-        btnRegistrar.setOnClickListener(new View.OnClickListener() {
+        registrasebtn = (Button) findViewById(R.id.btn_registrarse);
+        registrasebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), RegistroUsuario.class);
                 startActivity(intent);
             }
         });
-
-        btnIngresar.setOnClickListener(new View.OnClickListener() {
+        ingresarflecha = (ImageButton) findViewById(R.id.btn_ingresar_sin_id);
+        ingresarflecha.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), MenuPrincipal.class);
                 startActivity(intent);
             }
         });
+
+
     }
+
+
 }
