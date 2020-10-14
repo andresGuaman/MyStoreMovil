@@ -1,15 +1,15 @@
 package com.agmr.mystore.modelo;
 
-public class chat {
+public class Chat {
     private String imagenes;
     private String mensaje;
 
-    public chat(String imagenes, String mensaje) {
+    public Chat(String imagenes, String mensaje) {
         this.imagenes = imagenes;
         this.mensaje = mensaje;
     }
 
-    public chat() {
+    public Chat() {
     }
 
     public String getImagenes() {

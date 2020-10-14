@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#cfd8dc"
+    tools:context=".MenuProductos">
+
+    <LinearLayout
+        android:layout_width="386dp"
+        android:layout_height="659dp"
+        android:background="#cfd8dc"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ListView
+            android:id="@+id/listMenuProduct"
+            android:layout_width="match_parent"
+            android:layout_height="602dp"
+            android:background="#FAFAFA" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="47dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnInicio"
+                android:layout_width="189dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#4FB9F4"
+                android:text="Inicio" />
+
+            <Button
+                android:id="@+id/btnCrearProduct"
+                android:layout_width="196dp"
+                android:layout_height="47dp"
+                android:layout_weight="1"
+                android:background="#4FB9F4"
+                android:text="Crear" />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

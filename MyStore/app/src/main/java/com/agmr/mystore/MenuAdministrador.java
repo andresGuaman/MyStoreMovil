@@ -9,7 +9,8 @@ import android.widget.Button;
 
 public class MenuAdministrador extends AppCompatActivity {
 
-    Button product;
+    private Button product;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +21,10 @@ public class MenuAdministrador extends AppCompatActivity {
 
         product.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {            }
+            public void onClick(View view) {
+                Intent intent=new Intent(getApplicationContext(),MenuProductos.class);
+                startActivity(intent);
+            }
         });
     }
 }

@@ -1,6 +1,5 @@
 package com.agmr.mystore.fracments;
 
-import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,10 +10,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.agmr.mystore.AdapterImg;
+import com.agmr.mystore.AdaptingImagen.AdapterImglist;
 import com.agmr.mystore.R;
-import com.agmr.mystore.modelo.producto;
-import com.agmr.mystore.service.PostServiceProducto;
+import com.agmr.mystore.modelo.Producto;
+import com.agmr.mystore.servicio.PostServiceProducto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,8 +37,8 @@ public class lista_productos extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
-    private ListView lvImgen;
-    private ArrayList<producto> imagesProduco;
+    private ListView listaDatos;
+    private ArrayList<Producto> imagesProducto;
     private ArrayAdapter arrayAdapter;
     View vista;
 
@@ -80,19 +79,19 @@ public class lista_productos extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        vista = inflater.inflate(R.layout.fragment_lista_productos, container, false);
+       vista=inflater.inflate(R.layout.fragment_lista_productos, container,false);
         init();
         return vista;
     }
 
     public void init() {
-        imagesProduco = new ArrayList<>();
-        lvImgen = vista.findViewById(R.id.list_productos_menu);
-        arrayAdapter = new AdapterImg(lista_productos.super.getActivity(), imagesProduco);
-        lvImgen.setAdapter(arrayAdapter);
+        imagesProducto = new ArrayList<>();
+        listaDatos = (ListView) vista.findViewById(R.id.lstMenuPrincipal);
+        arrayAdapter = new AdapterImglist(lista_productos.super.getActivity(), imagesProducto);
+        listaDatos.setAdapter(arrayAdapter);
         getImgs();
     }
+
 
     public void getImgs() {
         Retrofit retrofit = new Retrofit.Builder()
@@ -100,23 +99,22 @@ public class lista_productos extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         final PostServiceProducto postServiceProducto = retrofit.create(PostServiceProducto.class);
-        Call<List<producto>> call = postServiceProducto.getProducto();
-        call.enqueue(new Callback<List<producto>>() {
+        Call<List<Producto>> call = postServiceProducto.getProducto();
+        call.enqueue(new Callback<List<Producto>>() {
             @Override
-            public void onResponse(Call<List<producto>> call, Response<List<producto>> response) {
+            public void onResponse(Call<List<Producto>> call, Response<List<Producto>> response) {
                 assert response.body() != null;
-                for (producto pro : response.body()) {
-                    imagesProduco.add(new producto(pro.getPro_foto(), pro.getPro_descripcion(), pro.getPro_costo(), pro.getPro_precio(), pro.getPro_stock(), pro.getPro_codigo_barra(), pro.getPro_marca(), pro.getPro_modelo()));
+                for (Producto pro : response.body()) {
+                    imagesProducto.add(new Producto(pro.getPro_foto(), pro.getPro_descripcion(), pro.getPro_costo(), pro.getPro_precio(), pro.getPro_stock(), pro.getPro_codigo_barra(), pro.getPro_marca(), pro.getPro_modelo()));
                 }
                 arrayAdapter.notifyDataSetChanged();
             }
 
             @Override
-            public void onFailure(Call<List<producto>> call, Throwable t) {
+            public void onFailure(Call<List<Producto>> call, Throwable t) {
 
             }
         });
-
     }
 
 

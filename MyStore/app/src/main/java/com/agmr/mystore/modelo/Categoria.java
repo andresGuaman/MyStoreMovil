@@ -1,13 +1,13 @@
 package com.agmr.mystore.modelo;
 
-public class categoria {
+public class Categoria {
     private String categoria;
     private String color;
     private int edad;
     private String genero;
     private String marca;
 
-    public categoria(String categoria, String color, int edad, String genero, String marca) {
+    public Categoria(String categoria, String color, int edad, String genero, String marca) {
         this.categoria = categoria;
         this.color = color;
         this.edad = edad;
@@ -15,7 +15,7 @@ public class categoria {
         this.marca = marca;
     }
 
-    public categoria() {
+    public Categoria() {
 
     }
 

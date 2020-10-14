@@ -1,15 +1,15 @@
 package com.agmr.mystore.modelo;
 
-public class proveedor {
+public class Proveedor {
     private String empresa;
     private String ruc;
 
-    public proveedor(String empresa, String ruc) {
+    public Proveedor(String empresa, String ruc) {
         this.empresa = empresa;
         this.ruc = ruc;
     }
 
-    public proveedor() {
+    public Proveedor() {
     }
 
     public String getEmpresa() {

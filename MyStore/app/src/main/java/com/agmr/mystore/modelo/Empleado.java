@@ -1,17 +1,17 @@
 package com.agmr.mystore.modelo;
 
-public class empleado {
+public class Empleado {
     private String password;
             private double salario;
             private String usuario;
 
-    public empleado(String password, double salario, String usuario) {
+    public Empleado(String password, double salario, String usuario) {
         this.password = password;
         this.salario = salario;
         this.usuario = usuario;
     }
 
-    public empleado() {
+    public Empleado() {
     }
 
     public String getPassword() {

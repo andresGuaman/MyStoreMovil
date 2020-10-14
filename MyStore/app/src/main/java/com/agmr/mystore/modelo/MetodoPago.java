@@ -1,17 +1,17 @@
 package com.agmr.mystore.modelo;
 
-public class metodoPago {
+public class MetodoPago {
     private String metodo;
     private String nro_tarjeta;
             private String tipo;
 
-    public metodoPago(String metodo, String nro_tarjeta, String tipo) {
+    public MetodoPago(String metodo, String nro_tarjeta, String tipo) {
         this.metodo = metodo;
         this.nro_tarjeta = nro_tarjeta;
         this.tipo = tipo;
     }
 
-    public metodoPago() {
+    public MetodoPago() {
     }
 
     public String getMetodo() {

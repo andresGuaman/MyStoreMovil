@@ -13,11 +13,11 @@ public interface PostServiceProducto {
     //producto
     //GET
     String API_ROUTE="/api/v1/Producto";
-    @GET(API_ROUTE)
+    @GET("/Producto")
     Call<List<Producto>> getProducto();
     //GET BY ID
     //POST
-    @POST(API_ROUTE)
+    @POST("/create")
     Call<Producto>addProducto(@Body Producto producto);
 
     //UPDATE

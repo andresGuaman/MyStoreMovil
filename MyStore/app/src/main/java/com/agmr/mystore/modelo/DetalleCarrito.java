@@ -1,6 +1,6 @@
 package com.agmr.mystore.modelo;
 
-public class detalleCarrito {
+public class DetalleCarrito {
     private int cantidad;
     private int descuento;
     private int iva;
@@ -8,7 +8,7 @@ public class detalleCarrito {
     private double valor_total;
     private double valor_unitario;
 
-    public detalleCarrito(int cantidad, int descuento, int iva, double subtotal, double valor_total, double valor_unitario) {
+    public DetalleCarrito(int cantidad, int descuento, int iva, double subtotal, double valor_total, double valor_unitario) {
         this.cantidad = cantidad;
         this.descuento = descuento;
         this.iva = iva;
@@ -17,7 +17,7 @@ public class detalleCarrito {
         this.valor_unitario = valor_unitario;
     }
 
-    public detalleCarrito() {
+    public DetalleCarrito() {
     }
 
     public int getCantidad() {

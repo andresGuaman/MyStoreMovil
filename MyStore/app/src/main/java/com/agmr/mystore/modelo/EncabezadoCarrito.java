@@ -1,6 +1,6 @@
 package com.agmr.mystore.modelo;
 
-public class encabezadoCarrito {
+public class EncabezadoCarrito {
 
     private  double descuento;
     private String fecha;
@@ -8,7 +8,7 @@ public class encabezadoCarrito {
     private  double subtotal;
     private double total;
 
-    public encabezadoCarrito(double descuento, String fecha, double iva, double subtotal, double total) {
+    public EncabezadoCarrito(double descuento, String fecha, double iva, double subtotal, double total) {
         this.descuento = descuento;
         this.fecha = fecha;
         this.iva = iva;
@@ -16,7 +16,7 @@ public class encabezadoCarrito {
         this.total = total;
     }
 
-    public encabezadoCarrito() {
+    public EncabezadoCarrito() {
     }
 
     public double getDescuento() {
