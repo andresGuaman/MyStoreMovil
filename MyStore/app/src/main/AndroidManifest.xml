@@ -14,7 +14,7 @@
         android:usesCleartextTraffic="true">
         <activity android:name=".CrearProducto"></activity>
         <activity android:name=".MenuProductos" />
-        <activity android:name=".Lista_pedidos" />
+        <activity android:name=".ListaPedidos" />
         <activity android:name=".MenuAdministrador" />
         <activity android:name=".MenuPrincipal" />
         <activity android:name=".RegistroUsuario" />
