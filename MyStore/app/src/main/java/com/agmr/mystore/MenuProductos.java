@@ -1,14 +1,25 @@
 package com.agmr.mystore;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.nfc.Tag;
 import android.os.Bundle;
+import android.text.NoCopySpan;
+import android.util.Log;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.agmr.mystore.AdaptingImagen.AdapterImglist;
@@ -52,13 +63,57 @@ public class MenuProductos extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        lista=(ListView)findViewById(R.id.listMenuProduct);
+        lista = (ListView) findViewById(R.id.listMenuProduct);
         lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(MenuProductos.this, "i"+i, Toast.LENGTH_SHORT).show();
+                Intent descrip = new Intent(getApplicationContext(), DescripcionProducto.class);
+                descrip.putExtra("id", i + "");
+                startActivity(descrip);
             }
         });
+        registerForContextMenu(lista);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.floatmenu, menu);
+        menu.setHeaderTitle("Seleccione una A");
+    }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        final AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        if (item.getItemId() == R.id.actualizar) {
+            Toast.makeText(this, "actualizar" + info.position, Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getApplicationContext(), CrearProducto.class);
+            String idDat = info.position + "";
+            intent.putExtra("id", idDat);
+            startActivity(intent);
+            return true;
+        } else if (item.getItemId() == R.id.eliminar) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(MenuProductos.this);
+            builder.setTitle("Eliminar Producto");
+            builder.setMessage("Usted desea eliminar este producto")
+                    .setPositiveButton("si", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            EliminarPro((info.position + 1));
+                        }
+                    })
+                    .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Toast.makeText(MenuProductos.this, "OK sera para la proxima", Toast.LENGTH_SHORT).show();
+                        }
+                    }).show();
+
+            return true;
+        }
+
+        return super.onContextItemSelected(item);
     }
 
     public void init() {
@@ -67,6 +122,32 @@ public class MenuProductos extends AppCompatActivity {
         arrayAdapter = new AdapterImglist(this, imagesProducto);
         lista.setAdapter(arrayAdapter);
         getImgs();
+    }
+
+    public void EliminarPro(final int id) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://192.168.56.1:9898")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        final PostServiceProducto postServiceProducto = retrofit.create(PostServiceProducto.class);
+        Call<Producto> call = postServiceProducto.deleteProducto(id);
+        Toast.makeText(MenuProductos.this, "RESPONSE" + id, Toast.LENGTH_SHORT).show();
+        call.enqueue(new Callback<Producto>() {
+            @Override
+            public void onResponse(Call<Producto> call, Response<Producto> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(MenuProductos.this, "Se elimino correctamente" + id, Toast.LENGTH_SHORT).show();
+                    init();
+                } else {
+                    Toast.makeText(MenuProductos.this, "No se elimino correctamente" + id, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Producto> call, Throwable t) {
+                Toast.makeText(MenuProductos.this, "A fallado la coneccion" + t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public void getImgs() {

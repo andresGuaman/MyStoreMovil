@@ -33,13 +33,15 @@ public class AdapterImglist extends ArrayAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = context.getLayoutInflater();
         View view = inflater.inflate(R.layout.list_productos, null);
+
         ImageView imagenProducto = view.findViewById(R.id.img_producto);
         TextView descripcion = view.findViewById(R.id.txt_descrip);
         TextView precio = view.findViewById(R.id.txt_precio);
+
         Producto i = (Producto) datos.get(position);
         Picasso.with(context.getApplicationContext()).load(i.getPro_foto()).error(R.mipmap.ic_launcher).fit().centerInside().into(imagenProducto);
         descripcion.setText(i.getPro_descripcion());
-        precio.setText("US$" + i.getPro_precio());
+        precio.setText("USD$" + i.getPro_precio());
         return view;
     }
 }

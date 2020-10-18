@@ -1,5 +1,6 @@
 package com.agmr.mystore.fracments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,10 +8,12 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.agmr.mystore.AdaptingImagen.AdapterImglist;
+import com.agmr.mystore.DescripcionProducto;
 import com.agmr.mystore.R;
 import com.agmr.mystore.modelo.Producto;
 import com.agmr.mystore.servicio.PostServiceProducto;
@@ -81,6 +84,15 @@ public class lista_productos extends Fragment {
                              Bundle savedInstanceState) {
        vista=inflater.inflate(R.layout.fragment_lista_productos, container,false);
         init();
+        listaDatos = (ListView) vista.findViewById(R.id.lstMenuPrincipal);
+       listaDatos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+           @Override
+           public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+               Intent intent=new Intent(getContext(), DescripcionProducto.class);
+               intent.putExtra("id",i+"");
+               startActivity(intent);
+           }
+       });
         return vista;
     }
 
