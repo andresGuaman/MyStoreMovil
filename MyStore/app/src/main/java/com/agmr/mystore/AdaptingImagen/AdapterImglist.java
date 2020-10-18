@@ -42,7 +42,7 @@ public class AdapterImglist extends ArrayAdapter {
 
         Picasso.with(context.getApplicationContext()).load(i.getPro_foto()).error(R.mipmap.ic_launcher).fit().centerInside().into(imagenProducto);
         descripcion.setText(i.getPro_descripcion());
-        precio.setText("US$" + i.getPro_precio());
+        precio.setText("USD$" + i.getPro_precio());
         return view;
     }
 }

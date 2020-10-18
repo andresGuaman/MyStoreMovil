@@ -43,6 +43,14 @@ public class CrearProducto extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear_producto);
+        final String idf = getIntent().getStringExtra("id");
+        guardar = (Button) findViewById(R.id.btnCrearProducto);
+        if (idf == null) {
+            guardar.setText("crear");
+        } else {
+            guardar.setText("actualizar");
+            getImgsDetall((Integer.parseInt(idf)+1));
+        }
         regresa = (ImageButton) findViewById(R.id.btnRegresar);
         regresa.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,7 +59,6 @@ public class CrearProducto extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        //loadImageURL();
         buscarImage = (FloatingActionButton) findViewById(R.id.btnMostrarFoto);
         buscarImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,13 +66,19 @@ public class CrearProducto extends AppCompatActivity {
                 loadImageURL();
             }
         });
-        guardar = (Button) findViewById(R.id.btnCrearProducto);
         guardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                createProduct(datosproducto());
+                if (idf == null) {
+                    createProduct(datosproducto());
+                } else {
+                    updateProduc(Integer.parseInt(idf), datosproducto());
+                }
+
             }
         });
+
+
         link = (EditText) findViewById(R.id.txtLinkFoto);
         descrip = (EditText) findViewById(R.id.txtDescripcion);
         costo = (EditText) findViewById(R.id.txtCosto);
@@ -83,7 +96,7 @@ public class CrearProducto extends AppCompatActivity {
         produc.setPro_descripcion(descrip.getText().toString());
         produc.setPro_costo(Double.parseDouble(costo.getText().toString()));
         produc.setPro_precio(Double.parseDouble(precio.getText().toString()));
-        produc.setPro_stock(Integer.parseInt(precio.getText().toString()));
+        produc.setPro_stock(Integer.parseInt(cantidad.getText().toString()));
         produc.setPro_codigo_barra(codBarras.getText().toString());
         produc.setPro_marca(marca.getText().toString());
         produc.setPro_modelo(modelo.getText().toString());
@@ -116,6 +129,33 @@ public class CrearProducto extends AppCompatActivity {
         });
     }
 
+    private void updateProduc(int id, Producto producto) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://192.168.56.1:9898")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        final PostServiceProducto postServiceProducto = retrofit.create(PostServiceProducto.class);
+        Call<Producto> call = postServiceProducto.updateProucto(id, producto);
+        call.enqueue(new Callback<Producto>() {
+            @Override
+            public void onResponse(Call<Producto> call, Response<Producto> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(CrearProducto.this, "Se actualizo correctamente", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getApplicationContext(), MenuProductos.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(CrearProducto.this, "No se actualizo correctamente", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CrearProducto.this, "salida "+response, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Producto> call, Throwable t) {
+                Toast.makeText(CrearProducto.this, "A fallado la coneccion" + t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     private void loadImageURL() {
         foto = (ImageView) findViewById(R.id.imgProductosCreate);
         String URLimg;
@@ -128,5 +168,43 @@ public class CrearProducto extends AppCompatActivity {
             Picasso.with(this).load(link.getText().toString())
                     .error(R.mipmap.ic_launcher).fit().centerInside().into(foto);
         }
+    }
+
+    protected void getImgsDetall(int id) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://192.168.56.1:9898")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        final PostServiceProducto postServiceProductoD = retrofit.create(PostServiceProducto.class);
+        Call<Producto> call = postServiceProductoD.getProductoById(id + 1);
+        call.enqueue(new Callback<Producto>() {
+            @Override
+            public void onResponse(Call<Producto> call, Response<Producto> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        Producto producDes = response.body();
+                        link.setText(producDes.getPro_foto());
+                        descrip.setText(producDes.getPro_descripcion());
+                        costo.setText(producDes.getPro_costo() + "");
+                        precio.setText(producDes.getPro_precio() + "");
+                        cantidad.setText(producDes.getPro_stock() + "");
+                        codBarras.setText(producDes.getPro_codigo_barra() + "");
+                        marca.setText(producDes.getPro_marca() + "");
+                        modelo.setText(producDes.getPro_modelo() + "");
+                        Picasso.with(CrearProducto.this).load(link.getText().toString())
+                                .error(R.mipmap.ic_launcher).fit().centerInside().into(foto);
+                    }
+                } catch (Exception e) {
+                    Toast.makeText(CrearProducto.this, "Eroro " + e, Toast.LENGTH_SHORT).show();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Producto> call, Throwable t) {
+                Toast.makeText(CrearProducto.this, "a ocurrido un error de conexion ", Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 }

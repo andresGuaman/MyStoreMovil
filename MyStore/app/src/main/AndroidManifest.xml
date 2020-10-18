@@ -12,9 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".CrearProducto"></activity>
+        <activity android:name=".DescripcionProducto"></activity>
+        <activity android:name=".CrearProducto" />
         <activity android:name=".MenuProductos" />
-        <activity android:name=".ListaPedidos" />
+        <activity android:name=".Lista_pedidos" />
         <activity android:name=".MenuAdministrador" />
         <activity android:name=".MenuPrincipal" />
         <activity android:name=".RegistroUsuario" />

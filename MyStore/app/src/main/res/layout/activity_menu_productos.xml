@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#cfd8dc"
-    tools:context=".MenuProductos">
+    tools:context=".MenuProductos"
+    >
 
     <LinearLayout
         android:layout_width="386dp"
@@ -21,7 +22,8 @@
             android:id="@+id/listMenuProduct"
             android:layout_width="match_parent"
             android:layout_height="602dp"
-            android:background="#FAFAFA" />
+            android:background="#FAFAFA"
+            />
 
         <LinearLayout
             android:layout_width="match_parent"
