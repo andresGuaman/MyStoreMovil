@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textColor="#FFF"
-                android:text="@string/registro"
+                android:text="@string/registro_cliente"
                 android:textSize="32dp" />
         </LinearLayout>
     </LinearLayout>
@@ -394,7 +394,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#4FB9F4"
-            android:text="Siguiente" />
+            android:textAllCaps="false"
+            android:text="Registrar" />
     </LinearLayout>
 
 

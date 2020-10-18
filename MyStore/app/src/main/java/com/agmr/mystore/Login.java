@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,10 +13,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.agmr.mystore.modelo.Cliente;
+import com.agmr.mystore.modelo.Empleado;
+import com.agmr.mystore.modelo.Usuarios;
 import com.agmr.mystore.servicio.ClienteServicio;
-
-import java.nio.FloatBuffer;
-import java.util.List;
+import com.agmr.mystore.servicio.CnnSQLite;
+import com.agmr.mystore.servicio.PostServiceEmpleado;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -32,6 +32,7 @@ public class Login extends AppCompatActivity {
     private TextView estado_usuario;
     private TextView estado_pass;
     private TextView userNotFound;
+    private CnnSQLite cnn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +50,7 @@ public class Login extends AppCompatActivity {
         estado_usuario = findViewById(R.id.estado_login_usuario);
         estado_pass = findViewById(R.id.estado_login_pass);
         userNotFound = findViewById(R.id.viewUserNotFound);
+        cnn = new CnnSQLite(getApplicationContext());
 
         Button btnLogin = findViewById(R.id.btnLogin);
         Button btnRegistrar = findViewById(R.id.btn_registrarse);
@@ -57,7 +59,6 @@ public class Login extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), RegistroUsuario.class);
                 login();
             }
         });
@@ -81,27 +82,73 @@ public class Login extends AppCompatActivity {
 
     public void login() {
         if (validacion()) {
-            Retrofit retrofit = new Retrofit.Builder().baseUrl("http://192.168.0.103:9898").addConverterFactory(GsonConverterFactory.create()).build();
-            final ClienteServicio clienteServicio = retrofit.create(ClienteServicio.class);
-            Call<Cliente> cliente = clienteServicio.getClienteByUserPass(txtUsuario.getText().toString(), txtPass.getText().toString());
+            if (loginCliente()) {
+                Intent intent = new Intent(getApplicationContext(), MenuPrincipal.class);
+                startActivity(intent);
+            } else if (loginEmpleado()) {
+                Intent intent = new Intent(getApplicationContext(), MenuPrincipal.class);
+                startActivity(intent);
+            }
+        }
+    }
 
-            cliente.enqueue(new Callback<Cliente>() {
-                @Override
-                public void onResponse(Call<Cliente> call, Response<Cliente> response) {
-                    if (response.isSuccessful()) {
-                        Toast.makeText(Login.this, "¡Bienvenido!", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(Login.this, "Error de Servidor", Toast.LENGTH_SHORT).show();
+    private boolean loginCliente() {
+        final boolean[] respuesta = {false};
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(Local.IP_SERVER).addConverterFactory(GsonConverterFactory.create()).build();
+        final ClienteServicio clienteServicio = retrofit.create(ClienteServicio.class);
+        Call<Cliente> cliente = clienteServicio.getClienteByUserPass(txtUsuario.getText().toString(), txtPass.getText().toString());
+
+        cliente.enqueue(new Callback<Cliente>() {
+            @Override
+            public void onResponse(Call<Cliente> call, Response<Cliente> response) {
+                if (response.isSuccessful()) {
+                    Cliente client = response.body();
+                    if (client != null) {
+                        cnn.insertUsuario(new Usuarios(0, 1, (int) client.getCli_id(), "cliente"));
+                        Intent intent = new Intent(getApplicationContext(), MenuPrincipal.class);
+                        startActivity(intent);
+                        respuesta[0] = true;
                     }
                 }
+            }
 
-                @Override
-                public void onFailure(Call<Cliente> call, Throwable t) {
-                    Toast.makeText(Login.this, "Usuario no encontrado", Toast.LENGTH_SHORT).show();
-                    userNotFound.setTextColor(Color.RED);
+            @Override
+            public void onFailure(Call<Cliente> call, Throwable t) {
+            }
+        });
+
+        return respuesta[0];
+    }
+
+    private boolean loginEmpleado() {
+
+        final boolean[] respuesta = {false};
+
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(Local.IP_SERVER).addConverterFactory(GsonConverterFactory.create()).build();
+        final PostServiceEmpleado service = retrofit.create(PostServiceEmpleado.class);
+        Call<Empleado> empleado = service.getEmpleadoByUserPass(txtUsuario.getText().toString(), txtPass.getText().toString());
+
+        empleado.enqueue(new Callback<Empleado>() {
+            @Override
+            public void onResponse(Call<Empleado> call, Response<Empleado> response) {
+                if (response.isSuccessful()) {
+                    Empleado employee = response.body();
+                    if (employee != null) {
+                        cnn.insertUsuario(new Usuarios(0, 1, (int) employee.getEmp_id(), "empleado"));
+                        Intent intent = new Intent(getApplicationContext(), MenuPrincipal.class);
+                        startActivity(intent);
+                        respuesta[0] = true;
+                    }
                 }
-            });
-        }
+            }
+
+            @Override
+            public void onFailure(Call<Empleado> call, Throwable t) {
+                userNotFound.setTextColor(Color.RED);
+            }
+        });
+
+        return respuesta[0];
     }
 
     public boolean validacion() {
@@ -110,8 +157,8 @@ public class Login extends AppCompatActivity {
         if (txtUsuario.getText().toString().isEmpty()) {
             setIconEstado(estado_usuario, true);
             respuesta = false;
-        }else {
-            setIconEstado(estado_usuario,false);
+        } else {
+            setIconEstado(estado_usuario, false);
         }
 
         if (txtPass.getText().toString().isEmpty()) {

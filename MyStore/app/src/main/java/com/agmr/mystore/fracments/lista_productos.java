@@ -79,7 +79,7 @@ public class lista_productos extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-       vista=inflater.inflate(R.layout.fragment_lista_productos, container,false);
+        vista = inflater.inflate(R.layout.fragment_lista_productos, container, false);
         init();
         return vista;
     }

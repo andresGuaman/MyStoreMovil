@@ -1,4 +1,4 @@
-package com.agmr.mystore.fracments;
+package com.agmr.mystore;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,36 +10,38 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.agmr.mystore.Login;
-import com.agmr.mystore.MenuAdministrador;
-import com.agmr.mystore.R;
-
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link menu_barras#newInstance} factory method to
+ * Use the {@link NonRegistered#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class menu_barras extends Fragment {
+public class NonRegistered extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    Button iniciar_sesion, admin;
-    View vista;
+    private View view;
 
-    public menu_barras() {
+    public NonRegistered() {
         // Required empty public constructor
     }
 
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment NonRegistered.
+     */
     // TODO: Rename and change types and number of parameters
-    public static menu_barras newInstance(String param1, String param2) {
-        menu_barras fragment = new menu_barras();
+    public static NonRegistered newInstance(String param1, String param2) {
+        NonRegistered fragment = new NonRegistered();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -57,27 +59,31 @@ public class menu_barras extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        vista = inflater.inflate(R.layout.fragment_menu_barras, container, false);
-        iniciar_sesion = (Button) vista.findViewById(R.id.btn_init_secion);
-        iniciar_sesion.setOnClickListener(new View.OnClickListener() {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        view = inflater.inflate(R.layout.fragment_non_registered, container, false);
+        init();
+        return view;
+    }
+
+    private void init() {
+        Button btnLogin = (Button) view.findViewById(R.id.btnLoginChat);
+        Button btnRegister = (Button) view.findViewById(R.id.btnRegisterChat);
+
+        btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 Intent intent = new Intent(getContext(), Login.class);
                 startActivity(intent);
             }
         });
 
-        admin = (Button) vista.findViewById(R.id.btn_admin);
-        admin.setOnClickListener(new View.OnClickListener() {
+        btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext(), MenuAdministrador.class);
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), RegistroUsuario.class);
                 startActivity(intent);
             }
         });
-        return vista;
     }
 }

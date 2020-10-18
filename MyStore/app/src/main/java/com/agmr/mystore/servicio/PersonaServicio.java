@@ -22,6 +22,10 @@ public interface PersonaServicio {
     @GET(API_ROUTE + "/{per_id}")
     Call<List<Persona>> getIdPersona(@Path("per_id") int id);
 
+    //GET CONTACTS OF CHAT BY CLI_ID
+    @GET(API_ROUTE + "/contactos/{cli_id}")
+    Call<List<Persona>> getContactsByClientId(@Path("cli_id") long cli_id);
+
     //POST
     @POST(API_ROUTE)
     Call<Persona> addPersona(@Body Persona persona);

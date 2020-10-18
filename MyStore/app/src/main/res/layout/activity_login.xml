@@ -17,13 +17,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/img_imagen_usuario_lgin" />
 
+    <ImageView
+        android:id="@+id/img_imagen_usuario_lgin"
+        android:layout_width="175dp"
+        android:layout_height="175dp"
+        android:layout_marginTop="75dp"
+        android:focusable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@mipmap/logo1_foreground" />
+
     <Button
         android:id="@+id/btn_registrarse"
         android:layout_width="370dp"
         android:layout_height="67dp"
         android:layout_marginTop="16dp"
-        android:background="#4FB9F4"
+        android:background="#8BC34A"
         android:text="Registrar"
+        android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view2" />
@@ -33,21 +45,12 @@
         android:layout_width="370dp"
         android:layout_height="67dp"
         android:layout_marginTop="16dp"
-        android:background="#FFFFFF"
-        android:text="Sign In"
+        android:background="#4FB9F4"
+        android:text="Iniciar sesión"
+        android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_registrarse" />
-
-    <ImageView
-        android:id="@+id/img_imagen_usuario_lgin"
-        android:layout_width="175dp"
-        android:layout_height="175dp"
-        android:layout_marginTop="75dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@drawable/ic_user" />
 
     <ImageButton
         android:id="@+id/btn_ingresar_sin_id"
@@ -168,26 +171,28 @@
 
     </LinearLayout>
 
-    <CheckBox
-        android:id="@+id/checkBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="0dp"
-        android:text="Recordarme"
-        android:textColor="#68696E"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_datos_usuario" />
-
     <TextView
         android:id="@+id/viewUserNotFound"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:text="Usuario o Contraseña Incorrecto"
         android:textColor="#FFF"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox" />
+        app:layout_constraintTop_toBottomOf="@+id/btnOvlidoPassword" />
+
+    <Button
+        android:id="@+id/btnOvlidoPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:background="#FFF"
+        android:textAllCaps="false"
+        android:text="@string/olvido_contraseña"
+        android:textColor="#0000ff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login_datos_usuario" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

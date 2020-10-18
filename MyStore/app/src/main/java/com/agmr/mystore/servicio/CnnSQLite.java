@@ -75,8 +75,8 @@ public class CnnSQLite extends SQLiteOpenHelper {
 
     public boolean insertUsuario(Usuarios u) {
 
-        String sql = "INSERT INTO usuarios (usu_estado, usu_per_id) " +
-                "VALUES('" + u.getUsu_estado() + "','" + u.getUsu_per_id() + "')";
+        String sql = "INSERT INTO usuarios (usu_estado, usu_per_id, usu_rol) " +
+                "VALUES('" + u.getUsu_estado() + "','" + u.getUsu_per_id() + "','" + u.getUsu_rol() + "')";
         try {
             this.getWritableDatabase().execSQL(sql);
             return true;

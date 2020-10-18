@@ -82,12 +82,7 @@ public class RegistroUsuario extends AppCompatActivity {
 
     public void siguiente() {
         if (valicacion()) {
-            //insertarCliente(insertarPersona());
-            if (cnn.insertUsuario(new Usuarios(0, 1, 10))) {
-                Toast.makeText(RegistroUsuario.this, "Insetado en el SQLite", Toast.LENGTH_LONG).show();
-            } else {
-                //Toast.makeText(RegistroUsuario.this, "No Insetado en el SQLite", Toast.LENGTH_LONG).show();
-            }
+            insertarCliente(insertarPersona());
         }
     }
 
@@ -99,7 +94,7 @@ public class RegistroUsuario extends AppCompatActivity {
 
         Persona p = new Persona(0, "9999999999", txtNombre.getText().toString(), txtApellido.getText().toString(), txtTelefono.getText().toString(), txtCorreo.getText().toString(), date, "Activo", "http://photos/myphoto.png");
 
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://192.168.0.103:9898").addConverterFactory(GsonConverterFactory.create()).build();
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(Local.IP_SERVER).addConverterFactory(GsonConverterFactory.create()).build();
         final PersonaServicio personaServicio = retrofit.create(PersonaServicio.class);
         Call<Persona> call = personaServicio.addPersona(p);
 
@@ -110,7 +105,7 @@ public class RegistroUsuario extends AppCompatActivity {
 
                     Persona per = response.body();
                     assert per != null;
-                    if (cnn.insertUsuario(new Usuarios(0, 1, (int) per.getPer_id()))) {
+                    if (cnn.insertUsuario(new Usuarios(0, 1, (int) per.getPer_id(), "cliente"))) {
                         Toast.makeText(RegistroUsuario.this, "Insetado en el SQLite", Toast.LENGTH_LONG).show();
                     } else {
                         Toast.makeText(RegistroUsuario.this, "No Insetado en el SQLite", Toast.LENGTH_LONG).show();
@@ -133,7 +128,7 @@ public class RegistroUsuario extends AppCompatActivity {
 
         Cliente c = new Cliente(0, 0, txtUsuario.getText().toString(), txtPass.getText().toString(), per_id);
 
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://192.168.0.103:9898").addConverterFactory(GsonConverterFactory.create()).build();
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(Local.IP_SERVER).addConverterFactory(GsonConverterFactory.create()).build();
         final ClienteServicio clienteServicio = retrofit.create(ClienteServicio.class);
         Call<Cliente> call = clienteServicio.addCliente(c);
 

@@ -14,7 +14,7 @@ import retrofit2.http.Path;
 
 public interface ClienteServicio {
 
-    String API_ROUTE = "/api/v1/Cliente";
+    String API_ROUTE = "/Cliente";
 
     @GET(API_ROUTE)
     Call<List<Cliente>> getClientes();
@@ -23,9 +23,13 @@ public interface ClienteServicio {
     @GET(API_ROUTE + "/{cli_id}")
     Call<List<Cliente>> getClienteById(@Path("cli_id") int id);
 
+    //GET BY PERSONA ID
+    @GET(API_ROUTE + "/per_id/{per_id}")
+    Call<Cliente> getClienteByPerId(@Path("per_id") long per_id);
+
     //GET BY USERNAME AND PASSWORD
     @GET(API_ROUTE + "/{cli_usuario}/{cli_password}")
-    Call<Cliente> getClienteByUserPass(@Path("cli_usuario") String usuario, @Path("cli_password") String password);
+    Call<Cliente> getClienteByUserPass(@Path("cli_usuario") String cli_usuario, @Path("cli_password") String cli_password);
 
     //POST
     @POST(API_ROUTE)
