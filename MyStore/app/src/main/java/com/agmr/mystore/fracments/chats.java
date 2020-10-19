@@ -1,29 +1,24 @@
 package com.agmr.mystore.fracments;
 
-import android.annotation.SuppressLint;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
-import com.agmr.mystore.AdaptingImagen.AdapterImgListChat;
+import com.agmr.mystore.AdaptingImagen.AdapterImgListContactos;
 import com.agmr.mystore.Local;
-import com.agmr.mystore.Login;
 import com.agmr.mystore.R;
 import com.agmr.mystore.modelo.Chat;
-import com.agmr.mystore.modelo.Cliente;
 import com.agmr.mystore.modelo.Contacto;
 import com.agmr.mystore.modelo.Empleado;
 import com.agmr.mystore.modelo.Persona;
-import com.agmr.mystore.modelo.Usuarios;
-import com.agmr.mystore.servicio.ClienteServicio;
 import com.agmr.mystore.servicio.CnnSQLite;
 import com.agmr.mystore.servicio.PersonaServicio;
 import com.agmr.mystore.servicio.PostServiceChat;
@@ -31,6 +26,7 @@ import com.agmr.mystore.servicio.PostServiceEmpleado;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -58,6 +54,7 @@ public class chats extends Fragment {
     private ArrayAdapter arrayAdapter;
     private View view;
     private long cli_id;
+    private long emp_id;
 
     public chats() {
         // Required empty public constructor
@@ -101,32 +98,71 @@ public class chats extends Fragment {
     public void init() {
 
         cli_id = getPerId();
+        emp_id = getPerId();
         contactsList = new ArrayList<>();
         lvChats = view.findViewById(R.id.lvChats);
-        arrayAdapter = new AdapterImgListChat(chats.super.getActivity(), contactsList);
+        arrayAdapter = new AdapterImgListContactos(chats.super.getActivity(), contactsList);
         lvChats.setAdapter(arrayAdapter);
         getImgs();
+
+        lvChats.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new mensajes(contactsList.get(position))).commit();
+            }
+        });
     }
 
     public void getImgs() {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(Local.IP_SERVER).addConverterFactory(GsonConverterFactory.create()).build();
-        PersonaServicio service = retrofit.create(PersonaServicio.class);
-        Call<List<Persona>> call = service.getContactsByClientId(this.cli_id);
+        if (getUsuRol().equalsIgnoreCase("cliente")) {
 
-        call.enqueue(new Callback<List<Persona>>() {
-            @Override
-            public void onResponse(Call<List<Persona>> call, Response<List<Persona>> response) {
+            Toast.makeText(getContext(), getUsuRol(), Toast.LENGTH_LONG).show();
 
-                assert response.body() != null;
-                for (Persona p:response.body()) {
-                    contactsList.add(new Contacto(p.getPer_id(), 0, cli_id, p.getPer_foto(), "Error", "Error"));
-                    addEmployeeDates(p.getPer_id());
+            Retrofit retrofit = new Retrofit.Builder().baseUrl(Local.IP_SERVER).addConverterFactory(GsonConverterFactory.create()).build();
+            PersonaServicio service = retrofit.create(PersonaServicio.class);
+            Call<List<Persona>> call = service.getContactsByClientId(this.cli_id);
+
+            call.enqueue(new Callback<List<Persona>>() {
+                @Override
+                public void onResponse(Call<List<Persona>> call, Response<List<Persona>> response) {
+
+                    assert response.body() != null;
+                    for (Persona p : response.body()) {
+                        contactsList.add(new Contacto(p.getPer_id(), 0, cli_id, p.getPer_foto(), "", ""));
+                        addEmployeeDates(p.getPer_id());
+                    }
+                    arrayAdapter.notifyDataSetChanged();
                 }
-                arrayAdapter.notifyDataSetChanged();
-            }
-            @Override
-            public void onFailure(Call<List<Persona>> call, Throwable t) {}
-        });
+
+                @Override
+                public void onFailure(Call<List<Persona>> call, Throwable t) {
+                }
+            });
+        } else if (getUsuRol().equalsIgnoreCase("empleado")) {
+
+            Toast.makeText(getContext(), getUsuRol(), Toast.LENGTH_LONG).show();
+
+            Retrofit retrofit = new Retrofit.Builder().baseUrl(Local.IP_SERVER).addConverterFactory(GsonConverterFactory.create()).build();
+            PersonaServicio service = retrofit.create(PersonaServicio.class);
+            Call<List<Persona>> call = service.getContactsByEmployeeId(this.emp_id);
+
+            call.enqueue(new Callback<List<Persona>>() {
+                @Override
+                public void onResponse(Call<List<Persona>> call, Response<List<Persona>> response) {
+
+                    assert response.body() != null;
+                    for (Persona p : response.body()) {
+                        contactsList.add(new Contacto(p.getPer_id(), emp_id, 0, p.getPer_foto(), "", ""));
+                        addEmployeeDates(p.getPer_id());
+                    }
+                    arrayAdapter.notifyDataSetChanged();
+                }
+
+                @Override
+                public void onFailure(Call<List<Persona>> call, Throwable t) {
+                }
+            });
+        }
     }
 
     private void addEmployeeDates(final long per_id) {
@@ -148,7 +184,7 @@ public class chats extends Fragment {
                             }
                         }
                         addChatsDates(cli_id, empleado.getEmp_id());
-                        arrayAdapter.notifyDataSetChanged();
+                        //arrayAdapter.notifyDataSetChanged();
                     }
                 }
             }
@@ -169,7 +205,6 @@ public class chats extends Fragment {
 
                 if (response.isSuccessful()) {
                     Chat chat = response.body();
-                    Toast.makeText(getContext(), chat.getCha_mensajes(), Toast.LENGTH_LONG).show();
                     if (chat != null) {
                         for (int i = 0; i < contactsList.size(); i++) {
                             if (contactsList.get(i).getCli_id() == cli_id && contactsList.get(i).getEmp_id() == emp_id) {
@@ -191,10 +226,21 @@ public class chats extends Fragment {
 
         if (usuario.getCount() > 0) {
             usuario.moveToFirst();
-            Toast.makeText(getContext(), usuario.getInt(3) + "", Toast.LENGTH_LONG).show();
             return (long) usuario.getInt(3);
         } else {
             return -1;
+        }
+    }
+
+    public String getUsuRol() {
+        CnnSQLite cnn = new CnnSQLite(getContext());
+        Cursor usuario = cnn.selectUserByStatus();
+
+        if (usuario.getCount() > 0) {
+            usuario.moveToFirst();
+            return usuario.getString(4);
+        } else {
+            return "NA";
         }
     }
 }

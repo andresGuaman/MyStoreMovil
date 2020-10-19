@@ -8,35 +8,97 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="565dp"
+        android:layout_height="match_parent"
+        android:background="#FFF"
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/Header"
             android:layout_width="match_parent"
-            android:layout_height="505dp"
-            android:orientation="vertical"></LinearLayout>
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#4FB9F4"
+            android:gravity="center_vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/btnRegresarToContacts"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="#4FB9F4"
+                    app:srcCompat="@drawable/abc_vector_test" />
+
+                <ImageView
+                    android:id="@+id/imgContactoMensaje"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:padding="3dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_user" />
+
+                <TextView
+                    android:id="@+id/txtContactoNombre"
+                    android:layout_width="350dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="#FFF"
+                    android:text="Contacto"
+                    android:textSize="32dp" />
+
+                <ImageButton
+                    android:id="@+id/imageButton"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#FFF"
+                    android:background="@drawable/ic_menu"/>
+            </LinearLayout>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="96dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginTop="10dp"
+            android:background="#FFF"
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/editTextTextPersonName"
-                android:layout_width="312dp"
+                android:id="@+id/txtMensajeSend"
+                android:layout_width="350dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:ems="10"
+                android:background="#FFF"
+                android:paddingStart="16dp"
+                android:hint="Escribe un mensaje ..."
                 android:inputType="textPersonName"
-                android:text="Name" />
+                android:text=""
+                android:textColor="#000" />
 
             <ImageButton
-                android:id="@+id/imageButton"
-                android:layout_width="87dp"
-                android:layout_height="45dp"
+                android:id="@+id/btnSendMensaje"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:clickable="true"
                 android:background="#FFFFFF"
                 android:src="@android:drawable/ic_menu_send" />
         </LinearLayout>
+
+        <ListView
+            android:id="@+id/lvMensajes"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:background="#EEE" />
     </LinearLayout>
 </FrameLayout>

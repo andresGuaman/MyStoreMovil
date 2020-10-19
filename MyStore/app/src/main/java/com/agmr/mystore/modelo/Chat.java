@@ -5,13 +5,15 @@ public class Chat {
     private long cha_id;
     private String cha_mensajes;
     private String cha_imagenes;
+    private String cha_rol_emisor;
 
     public Chat() {  }
 
-    public Chat(long cha_id, String cha_mensajes, String cha_imagenes) {
+    public Chat(long cha_id, String cha_mensajes, String cha_imagenes, String cha_rol_emisor) {
         this.cha_id = cha_id;
         this.cha_mensajes = cha_mensajes;
         this.cha_imagenes = cha_imagenes;
+        this.cha_rol_emisor = cha_rol_emisor;
     }
 
     public long getCha_id() {
@@ -36,5 +38,13 @@ public class Chat {
 
     public void setCha_imagenes(String cha_imagenes) {
         this.cha_imagenes = cha_imagenes;
+    }
+
+    public String getCha_rol_emisor() {
+        return cha_rol_emisor;
+    }
+
+    public void setCha_rol_emisor(String cha_rol_emisor) {
+        this.cha_rol_emisor = cha_rol_emisor;
     }
 }

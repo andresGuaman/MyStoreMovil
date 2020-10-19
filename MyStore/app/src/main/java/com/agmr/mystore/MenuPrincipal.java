@@ -3,12 +3,9 @@ package com.agmr.mystore;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.Toast;
-
 import com.agmr.mystore.dialogs.Welcome;
 import com.agmr.mystore.fracments.chats;
 import com.agmr.mystore.fracments.favoritos;

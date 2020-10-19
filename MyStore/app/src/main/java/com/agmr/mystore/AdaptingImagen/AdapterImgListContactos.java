@@ -13,13 +13,13 @@ import com.agmr.mystore.modelo.Contacto;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
-public class AdapterImgListChat extends ArrayAdapter {
+public class AdapterImgListContactos extends ArrayAdapter {
 
     Activity context;
     ArrayList<Contacto> datos;
 
-    public AdapterImgListChat(Activity context, ArrayList<Contacto> datos) {
-        super(context, R.layout.list_chats, datos);
+    public AdapterImgListContactos(Activity context, ArrayList<Contacto> datos) {
+        super(context, R.layout.list_contactos, datos);
         this.context = context;
         this.datos = datos;
     }
@@ -29,7 +29,7 @@ public class AdapterImgListChat extends ArrayAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         LayoutInflater inflater = context.getLayoutInflater();
-        View view = inflater.inflate(R.layout.list_chats, null);
+        View view = inflater.inflate(R.layout.list_contactos, null);
 
         ImageView photo = view.findViewById(R.id.imgFotoChat);
         TextView contacto = view.findViewById(R.id.txtContacto);
