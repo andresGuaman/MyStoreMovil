@@ -1,10 +1,9 @@
 package com.agmr.mystore;
 
 import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,8 +31,6 @@ public class RegistroUsuario extends AppCompatActivity {
     private EditText txtApellido;
     private EditText txtTelefono;
     private EditText txtCorreo;
-    private ImageButton btnRegresar;
-    private Button btnSiguiente;
     private Button btnFoto;
     private TextView estado_usuario;
     private TextView estado_pass;
@@ -58,8 +55,8 @@ public class RegistroUsuario extends AppCompatActivity {
         txtApellido = findViewById(R.id.txtApellido);
         txtTelefono = findViewById(R.id.txtTelefono);
         txtCorreo = findViewById(R.id.txtCorreo);
-        btnRegresar = findViewById(R.id.btnRegresar);
-        btnSiguiente = findViewById(R.id.btnSiguiente);
+        ImageButton btnRegresar = findViewById(R.id.btnRegresar);
+        Button btnSiguiente = findViewById(R.id.btnSiguiente);
         estado_usuario = findViewById(R.id.estado_usuario);
         estado_pass = findViewById(R.id.estado_pass);
         estado_nombre = findViewById(R.id.estado_nombre);
@@ -74,24 +71,24 @@ public class RegistroUsuario extends AppCompatActivity {
                 siguiente();
             }
         });
-    }
-
-    public void regresar() {
-
+        btnRegresar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MenuPrincipal.class);
+                startActivity(intent);
+            }
+        });
     }
 
     public void siguiente() {
         if (valicacion()) {
-            insertarCliente(insertarPersona());
+            insertarPersona();
         }
     }
 
-    public long insertarPersona() {
+    public void insertarPersona() {
 
-        final long[] per_id = new long[1];
-        per_id[0] = -1;
         Date date = null;
-
         Persona p = new Persona(0, "9999999999", txtNombre.getText().toString(), txtApellido.getText().toString(), txtTelefono.getText().toString(), txtCorreo.getText().toString(), date, "Activo", "http://photos/myphoto.png");
 
         Retrofit retrofit = new Retrofit.Builder().baseUrl(Local.IP_SERVER).addConverterFactory(GsonConverterFactory.create()).build();
@@ -105,23 +102,14 @@ public class RegistroUsuario extends AppCompatActivity {
 
                     Persona per = response.body();
                     assert per != null;
-                    if (cnn.insertUsuario(new Usuarios(0, 1, (int) per.getPer_id(), "cliente"))) {
-                        Toast.makeText(RegistroUsuario.this, "Insetado en el SQLite", Toast.LENGTH_LONG).show();
-                    } else {
-                        Toast.makeText(RegistroUsuario.this, "No Insetado en el SQLite", Toast.LENGTH_LONG).show();
-                    }
-                    per_id[0] = per.getPer_id();
-                } else {
-                    Toast.makeText(RegistroUsuario.this, "No se guardó correctamente", Toast.LENGTH_LONG).show();
+                    insertarCliente(per.getPer_id());
+                    cnn.insertUsuario(new Usuarios(0, 1, (int) per.getPer_id(), "cliente"));
                 }
             }
 
             @Override
-            public void onFailure(Call<Persona> call, Throwable t) {
-                Toast.makeText(RegistroUsuario.this, "A fallado la conexión: " + t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-            }
+            public void onFailure(Call<Persona> call, Throwable t) {  }
         });
-        return per_id[0];
     }
 
     public void insertarCliente(long per_id) {
@@ -130,22 +118,22 @@ public class RegistroUsuario extends AppCompatActivity {
 
         Retrofit retrofit = new Retrofit.Builder().baseUrl(Local.IP_SERVER).addConverterFactory(GsonConverterFactory.create()).build();
         final ClienteServicio clienteServicio = retrofit.create(ClienteServicio.class);
-        Call<Cliente> call = clienteServicio.addCliente(c);
+        Call<Cliente> call = clienteServicio.insertCliente(c, per_id);
 
         call.enqueue(new Callback<Cliente>() {
             @Override
             public void onResponse(Call<Cliente> call, Response<Cliente> response) {
                 if (response.isSuccessful()) {
-                    Toast.makeText(RegistroUsuario.this, "Se guardo correctamente", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getApplicationContext(), MenuPrincipal.class);
+                    startActivity(intent);
                 } else {
-                    Toast.makeText(RegistroUsuario.this, "No se guardo correctamente", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegistroUsuario.this, "Ha ocurrido un error", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Cliente> call, Throwable t) {
-                Toast.makeText(RegistroUsuario.this, "A fallado la conexión" + t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                Log.println(Log.WARN, "Insert Person", t.getMessage());
+                Toast.makeText(RegistroUsuario.this, "Ha ocurrido un error", Toast.LENGTH_SHORT).show();
             }
         });
 

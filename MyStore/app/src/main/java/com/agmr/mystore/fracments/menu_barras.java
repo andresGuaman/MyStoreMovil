@@ -1,6 +1,7 @@
 package com.agmr.mystore.fracments;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import com.agmr.mystore.Login;
 import com.agmr.mystore.MenuAdministrador;
 import com.agmr.mystore.R;
+import com.agmr.mystore.servicio.CnnSQLite;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -57,11 +59,13 @@ public class menu_barras extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         vista = inflater.inflate(R.layout.fragment_menu_barras, container, false);
+
         iniciar_sesion = (Button) vista.findViewById(R.id.btn_init_secion);
+        admin = (Button) vista.findViewById(R.id.btn_admin);
+
         iniciar_sesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,8 +73,6 @@ public class menu_barras extends Fragment {
                 startActivity(intent);
             }
         });
-
-        admin = (Button) vista.findViewById(R.id.btn_admin);
         admin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -78,6 +80,41 @@ public class menu_barras extends Fragment {
                 startActivity(intent);
             }
         });
+
+        if (userIsRegistered()) {
+            iniciar_sesion.setVisibility(View.GONE);
+            if (getUsuRol().equalsIgnoreCase("cliente")) {
+                admin.setVisibility(View.GONE);
+            } else {
+                admin.setVisibility(View.VISIBLE);
+            }
+        } else {
+            admin.setVisibility(View.GONE);
+        }
+
         return vista;
+    }
+
+    public String getUsuRol() {
+        CnnSQLite cnn = new CnnSQLite(getContext());
+        Cursor usuario = cnn.selectUserByStatus();
+
+        if (usuario.getCount() > 0) {
+            usuario.moveToFirst();
+            return usuario.getString(4);
+        } else {
+            return "NA";
+        }
+    }
+
+    public boolean userIsRegistered() {
+        CnnSQLite cnn = new CnnSQLite(getContext());
+        Cursor datos = cnn.selectUserByStatus();
+
+        if (datos.getCount() > 0) {
+            datos.moveToFirst();
+        }
+
+        return datos.getCount() > 0;
     }
 }

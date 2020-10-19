@@ -39,7 +39,6 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-
         init();
     }
 
@@ -135,8 +134,10 @@ public class Login extends AppCompatActivity {
                     Empleado employee = response.body();
                     if (employee != null) {
                         cnn.insertUsuario(new Usuarios(0, 1, (int) employee.getEmp_id(), "empleado"));
+
                         Intent intent = new Intent(getApplicationContext(), MenuPrincipal.class);
                         startActivity(intent);
+
                         respuesta[0] = true;
                     }
                 }

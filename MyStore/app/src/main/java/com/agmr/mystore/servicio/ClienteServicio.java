@@ -1,9 +1,7 @@
 package com.agmr.mystore.servicio;
 
 import com.agmr.mystore.modelo.Cliente;
-
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -23,13 +21,17 @@ public interface ClienteServicio {
     @GET(API_ROUTE + "/{cli_id}")
     Call<List<Cliente>> getClienteById(@Path("cli_id") int id);
 
-    //GET BY PERSONA ID
+    //GET BY PER ID
     @GET(API_ROUTE + "/per_id/{per_id}")
-    Call<Cliente> getClienteByPerId(@Path("per_id") long per_id);
+    Call<Cliente> getClienteByPersonaId(@Path("per_id") long per_id);
 
     //GET BY USERNAME AND PASSWORD
     @GET(API_ROUTE + "/{cli_usuario}/{cli_password}")
     Call<Cliente> getClienteByUserPass(@Path("cli_usuario") String cli_usuario, @Path("cli_password") String cli_password);
+
+    //NEW POST
+    @POST(API_ROUTE + "/{per_id}")
+    Call<Cliente> insertCliente(@Body Cliente cliente, @Path("per_id") long per_id);
 
     //POST
     @POST(API_ROUTE)

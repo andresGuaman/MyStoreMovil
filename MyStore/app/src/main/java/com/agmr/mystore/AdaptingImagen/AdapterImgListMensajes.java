@@ -2,6 +2,7 @@ package com.agmr.mystore.AdaptingImagen;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import com.agmr.mystore.R;
 import com.agmr.mystore.modelo.Chat;
 import com.agmr.mystore.modelo.Contacto;
+import com.agmr.mystore.servicio.CnnSQLite;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
@@ -46,12 +48,32 @@ public class AdapterImgListMensajes extends ArrayAdapter {
         Chat c = (Chat) datos.get(position);
 
         mensaje.setText(c.getCha_mensajes());
-        if (c.getCha_rol_emisor().equalsIgnoreCase("cliente")) {
-            photo.setBackgroundResource(R.drawable.tu);
+        if (getUsuRol().equalsIgnoreCase("cliente")) {
+            if (c.getCha_rol_emisor().equalsIgnoreCase("cliente")) {
+                photo.setBackgroundResource(R.drawable.tu);
+            } else {
+                Picasso.with(context.getApplicationContext()).load(contacto.getFoto()).error(R.mipmap.ic_launcher).fit().centerInside().into(photo);
+            }
         } else {
-            Picasso.with(context.getApplicationContext()).load(contacto.getFoto()).error(R.mipmap.ic_launcher).fit().centerInside().into(photo);
+            if (c.getCha_rol_emisor().equalsIgnoreCase("empleado")) {
+                photo.setBackgroundResource(R.drawable.tu);
+            } else {
+                Picasso.with(context.getApplicationContext()).load(contacto.getFoto()).error(R.mipmap.ic_launcher).fit().centerInside().into(photo);
+            }
         }
 
         return view;
+    }
+
+    public String getUsuRol() {
+        CnnSQLite cnn = new CnnSQLite(getContext());
+        Cursor usuario = cnn.selectUserByStatus();
+
+        if (usuario.getCount() > 0) {
+            usuario.moveToFirst();
+            return usuario.getString(4);
+        } else {
+            return "NA";
+        }
     }
 }
