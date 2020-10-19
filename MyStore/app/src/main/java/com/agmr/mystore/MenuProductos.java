@@ -87,6 +87,7 @@ public class MenuProductos extends AppCompatActivity {
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         final AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+
         if (item.getItemId() == R.id.actualizar) {
             Toast.makeText(this, "actualizar" + info.position, Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getApplicationContext(), CrearProducto.class);

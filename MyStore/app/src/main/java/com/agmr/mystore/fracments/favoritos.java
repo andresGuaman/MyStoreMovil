@@ -1,6 +1,7 @@
 package com.agmr.mystore.fracments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 
@@ -19,12 +20,15 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.agmr.mystore.AdaptingImagen.AdapterImglist;
 import com.agmr.mystore.DescripcionProducto;
 import com.agmr.mystore.R;
 import com.agmr.mystore.modelo.Favoritos;
 import com.agmr.mystore.servicio.CnnSQLite;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -83,20 +87,22 @@ public class favoritos extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         vista = inflater.inflate(R.layout.fragment_favoritos, container, false);
         String esconde = "esconde";
         final CnnSQLite conectar = new CnnSQLite(getContext());
          Cursor cursor = conectar.selectFavouritesDETALL();
 
         ImageView imga=(ImageView)vista.findViewById(R.id.img_producto);
+        final ListView listass = (ListView) vista.findViewById(R.id.lista_favoritos);
 
         String[] desde = new String[]{"fav_id","fav_pro_id", "fav_fot", "fav_des", "fav_precio"};
         int[] hasta = new int[]{R.id.txt_datoFalso,R.id.txt_idProductoList,R.id.img_producto, R.id.txt_descrip, R.id.txt_precio};
         final CursorAdapter adapter = new SimpleCursorAdapter(getContext(),
                 R.layout.list_productos, cursor, desde, hasta, 0);
-        final ListView listass = (ListView) vista.findViewById(R.id.lista_favoritos);
         listass.setAdapter(adapter);
+
+
 
        listass.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
            @Override
@@ -115,6 +121,15 @@ public class favoritos extends Fragment {
                return false;
            }
        });
+        listass.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Cursor cursor2=(Cursor)listass.getItemAtPosition(i);
+                String iddatos=cursor2.getString(0);
+                Intent intent = new Intent(getContext(),DescripcionProducto.class);
+                intent.putExtra("id",iddatos);
+            }
+        });
 
 
 

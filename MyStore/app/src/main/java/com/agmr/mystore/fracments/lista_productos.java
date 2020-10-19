@@ -117,7 +117,7 @@ public class lista_productos extends Fragment {
             public void onResponse(Call<List<Producto>> call, Response<List<Producto>> response) {
                 assert response.body() != null;
                 for (Producto pro : response.body()) {
-                    imagesProducto.add(new Producto(pro.getPro_foto(), pro.getPro_descripcion(), pro.getPro_costo(), pro.getPro_precio(), pro.getPro_stock(), pro.getPro_codigo_barra(), pro.getPro_marca(), pro.getPro_modelo()));
+                    imagesProducto.add(new Producto(pro.getPro_id(), pro.getPro_foto(), pro.getPro_descripcion(), pro.getPro_costo(), pro.getPro_precio(), pro.getPro_stock(), pro.getPro_codigo_barra(), pro.getPro_marca(), pro.getPro_modelo()));
                 }
                 arrayAdapter.notifyDataSetChanged();
             }
