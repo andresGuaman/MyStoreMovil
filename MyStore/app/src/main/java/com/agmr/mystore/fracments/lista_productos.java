@@ -14,6 +14,7 @@ import android.widget.ListView;
 
 import com.agmr.mystore.AdaptingImagen.AdapterImglist;
 import com.agmr.mystore.DescripcionProducto;
+import com.agmr.mystore.Local;
 import com.agmr.mystore.R;
 import com.agmr.mystore.modelo.Producto;
 import com.agmr.mystore.servicio.PostServiceProducto;
@@ -107,7 +108,7 @@ public class lista_productos extends Fragment {
 
     public void getImgs() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.56.1:9898")
+                .baseUrl(Local.IP_SERVER)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         final PostServiceProducto postServiceProducto = retrofit.create(PostServiceProducto.class);

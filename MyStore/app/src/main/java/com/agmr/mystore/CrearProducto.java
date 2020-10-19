@@ -49,7 +49,7 @@ public class CrearProducto extends AppCompatActivity {
             guardar.setText("crear");
         } else {
             guardar.setText("actualizar");
-            getImgsDetall((Integer.parseInt(idf)+1));
+            getImgsDetall((Integer.parseInt(idf) + 1));
         }
         regresa = (ImageButton) findViewById(R.id.btnRegresar);
         regresa.setOnClickListener(new View.OnClickListener() {
@@ -105,7 +105,7 @@ public class CrearProducto extends AppCompatActivity {
 
     private void createProduct(Producto producto) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.56.1:9898")
+                .baseUrl(Local.IP_SERVER)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         final PostServiceProducto postServiceProducto = retrofit.create(PostServiceProducto.class);
@@ -131,7 +131,7 @@ public class CrearProducto extends AppCompatActivity {
 
     private void updateProduc(int id, Producto producto) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.56.1:9898")
+                .baseUrl(Local.IP_SERVER)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         final PostServiceProducto postServiceProducto = retrofit.create(PostServiceProducto.class);
@@ -145,7 +145,7 @@ public class CrearProducto extends AppCompatActivity {
                     startActivity(intent);
                 } else {
                     Toast.makeText(CrearProducto.this, "No se actualizo correctamente", Toast.LENGTH_SHORT).show();
-                    Toast.makeText(CrearProducto.this, "salida "+response, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CrearProducto.this, "salida " + response, Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -172,7 +172,7 @@ public class CrearProducto extends AppCompatActivity {
 
     protected void getImgsDetall(int id) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.56.1:9898")
+                .baseUrl(Local.IP_SERVER)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         final PostServiceProducto postServiceProductoD = retrofit.create(PostServiceProducto.class);

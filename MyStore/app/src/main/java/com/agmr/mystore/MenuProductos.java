@@ -3,14 +3,9 @@ package com.agmr.mystore;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
-import android.nfc.Tag;
 import android.os.Bundle;
-import android.text.NoCopySpan;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -19,16 +14,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import com.agmr.mystore.AdaptingImagen.AdapterImglist;
 import com.agmr.mystore.modelo.Producto;
 import com.agmr.mystore.servicio.PostServiceProducto;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -128,7 +119,7 @@ public class MenuProductos extends AppCompatActivity {
 
     public void EliminarPro(final int id) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.56.1:9898")
+                .baseUrl(Local.IP_SERVER)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         final PostServiceProducto postServiceProducto = retrofit.create(PostServiceProducto.class);
@@ -154,7 +145,7 @@ public class MenuProductos extends AppCompatActivity {
 
     public void getImgs() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.56.1:9898")
+                .baseUrl(Local.IP_SERVER)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         final PostServiceProducto postServiceProducto = retrofit.create(PostServiceProducto.class);

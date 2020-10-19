@@ -95,7 +95,7 @@ public class chats extends Fragment {
         view = inflater.inflate(R.layout.fragment_chats, container, false);
         init();
         Thread refresh = new Refresh();
-        refresh.start();
+        //refresh.start();
         return view;
     }
 

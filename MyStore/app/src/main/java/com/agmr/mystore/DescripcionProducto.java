@@ -56,7 +56,7 @@ public class DescripcionProducto extends AppCompatActivity {
 
     protected void getImgsDetall(int id) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.56.1:9898")
+                .baseUrl(Local.IP_SERVER)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         final PostServiceProducto postServiceProductoD = retrofit.create(PostServiceProducto.class);
@@ -77,10 +77,8 @@ public class DescripcionProducto extends AppCompatActivity {
                     }
                 } catch (Exception e) {
                     Toast.makeText(DescripcionProducto.this, "Eroro " + e, Toast.LENGTH_SHORT).show();
-
                 }
             }
-
             @Override
             public void onFailure(Call<Producto> call, Throwable t) {
                 Toast.makeText(DescripcionProducto.this, "a ocurrido un error de conexion ", Toast.LENGTH_SHORT).show();
@@ -91,7 +89,7 @@ public class DescripcionProducto extends AppCompatActivity {
 
     public void getImgs() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.56.1:9898")
+                .baseUrl(Local.IP_SERVER)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         final PostServiceProducto postServiceProducto = retrofit.create(PostServiceProducto.class);
@@ -104,16 +102,11 @@ public class DescripcionProducto extends AppCompatActivity {
                     imagesProducto.add(new Producto(pro.getPro_id(), pro.getPro_foto(), pro.getPro_descripcion(), pro.getPro_costo(), pro.getPro_precio(), pro.getPro_stock(), pro.getPro_codigo_barra(), pro.getPro_marca(), pro.getPro_modelo()));
                 }
                 arrayAdapter.notifyDataSetChanged();
-                //    Toast.makeText(DescripcionProducto.this, "init "+arrayAdapter, Toast.LENGTH_SHORT).show();
-
             }
-
             @Override
             public void onFailure(Call<List<Producto>> call, Throwable t) {
 
             }
         });
     }
-
-
 }
