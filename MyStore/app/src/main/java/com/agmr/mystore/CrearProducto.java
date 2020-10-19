@@ -105,7 +105,7 @@ public class CrearProducto extends AppCompatActivity {
 
     private void createProduct(Producto producto) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Local.IP_SERVER)
+                .baseUrl("http://192.168.56.1:9898")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         final PostServiceProducto postServiceProducto = retrofit.create(PostServiceProducto.class);

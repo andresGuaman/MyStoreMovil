@@ -11,6 +11,7 @@ public interface PostServiceDetalleCarrito {
     //detalle carrito
     //GET
     String API_ROUTE4="/api/v1";
+
     @GET(API_ROUTE4+"/DetalleCarrito")
     Call<List<DetalleCarrito>> getDetalleCarrito();
     //GET BY ID

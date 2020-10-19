@@ -41,6 +41,7 @@ public class MenuProductos extends AppCompatActivity {
     private ArrayList<Producto> imagesProducto;
     private ArrayAdapter arrayAdapter;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,6 +87,7 @@ public class MenuProductos extends AppCompatActivity {
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         final AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+
         if (item.getItemId() == R.id.actualizar) {
             Toast.makeText(this, "actualizar" + info.position, Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getApplicationContext(), CrearProducto.class);
@@ -162,7 +164,7 @@ public class MenuProductos extends AppCompatActivity {
             public void onResponse(Call<List<Producto>> call, Response<List<Producto>> response) {
                 assert response.body() != null;
                 for (Producto pro : response.body()) {
-                    imagesProducto.add(new Producto(pro.getPro_foto(), pro.getPro_descripcion(), pro.getPro_costo(), pro.getPro_precio(), pro.getPro_stock(), pro.getPro_codigo_barra(), pro.getPro_marca(), pro.getPro_modelo()));
+                    imagesProducto.add(new Producto(pro.getPro_id(),pro.getPro_foto(), pro.getPro_descripcion(), pro.getPro_costo(), pro.getPro_precio(), pro.getPro_stock(), pro.getPro_codigo_barra(), pro.getPro_marca(), pro.getPro_modelo()));
                 }
                 arrayAdapter.notifyDataSetChanged();
             }

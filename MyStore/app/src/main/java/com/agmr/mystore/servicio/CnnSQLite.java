@@ -117,17 +117,24 @@ public class CnnSQLite extends SQLiteOpenHelper {
         return cursor;
     }
 
+    public Cursor selectFavouritesDETALL() {
+        Cursor cursor;
+        String sql = "SELECT ROWID as _id, fav_id, fav_pro_id, fav_fot, fav_des, fav_precio FROM favoritos";
+        cursor = this.getReadableDatabase().rawQuery(sql, null);
+        return cursor;
+    }
+
     public Cursor selectFavouriteById(int id) {
         Cursor cursor;
-        String sql = "SELECT ROWID as _id, * FROM favoritos WHERE fav_id = id";
+        String sql = "SELECT ROWID as _id, * FROM favoritos WHERE fav_id IN ('"+id+"')";
         cursor = this.getReadableDatabase().rawQuery(sql, null);
         return cursor;
     }
 
     public boolean insertFavourite(Favoritos f) {
 
-        String sql = "INSERT INTO favoritos (fav_pro_id, fav_estado, usu_id) " +
-                "VALUES('" + f.getFav_pro_id() + "','" + f.getFav_estado() + "','" + f.getUsu_id() + "')";
+        String sql = "INSERT INTO favoritos (fav_pro_id, fav_estado, usu_id, fav_fot, fav_des, fav_precio) " +
+                "VALUES('" + f.getFav_pro_id() + "','" + f.getFav_estado() + "','" + f.getUsu_id()+"','"+f.getFav_foto()+"','"+f.getFav_descripcion()+"','"+f.getFav_precio()+"')";
         try {
             this.getWritableDatabase().execSQL(sql);
             return true;
@@ -137,8 +144,8 @@ public class CnnSQLite extends SQLiteOpenHelper {
         }
     }
 
-    public boolean deleteFavourite(int id) {
-        String sql = "DELETE FROM favoritos WHERE fav_id = id";
+    public boolean deleteFavourite(String id) {
+        String sql = "DELETE FROM favoritos WHERE fav_id IN ('"+id+"')";
         try {
             this.getWritableDatabase().execSQL(sql);
             return true;
@@ -148,7 +155,7 @@ public class CnnSQLite extends SQLiteOpenHelper {
         }
     }
 
-    public boolean updateFavouriteStatus(Favoritos f) {
+   /* public boolean updateFavouriteStatus(Favoritos f) {
         String sql = "UPDATE favoritos SET fav_estado = '" + f.getFav_estado() + "' WHERE codigo = '" + f.getFav_id() + "'";
         try {
             this.getWritableDatabase().execSQL(sql);
@@ -157,8 +164,8 @@ public class CnnSQLite extends SQLiteOpenHelper {
             e.printStackTrace();
             return false;
         }
-    }
-
+     }
+*/
     // Notifications' Methods
 
     public Cursor selectNotifications() {
