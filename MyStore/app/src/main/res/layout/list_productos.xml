@@ -11,7 +11,7 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btn_carrit"
-        android:layout_width="65dp"
+        android:layout_width="60dp"
         android:layout_height="60dp"
         android:backgroundTint="#2687D1"
         android:clickable="true"
@@ -20,10 +20,10 @@
         app:backgroundTint="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="@+id/view5"
         app:layout_constraintEnd_toEndOf="@+id/view5"
-        app:layout_constraintHorizontal_bias="0.968"
+        app:layout_constraintHorizontal_bias="0.954"
         app:layout_constraintStart_toStartOf="@+id/view5"
         app:layout_constraintTop_toTopOf="@+id/img_producto"
-        app:layout_constraintVertical_bias="0.502"
+        app:layout_constraintVertical_bias="0.462"
         app:srcCompat="@drawable/carrito" />
 
     <TextView
@@ -65,8 +65,8 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btn_favorit"
-        android:layout_width="212dp"
-        android:layout_height="wrap_content"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:backgroundTint="#2687D1"
         android:clickable="true"
         android:focusable="false"

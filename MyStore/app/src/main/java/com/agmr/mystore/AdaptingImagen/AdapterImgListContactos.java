@@ -2,6 +2,9 @@ package com.agmr.mystore.AdaptingImagen;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,10 +40,25 @@ public class AdapterImgListContactos extends ArrayAdapter {
 
         Contacto c = (Contacto) datos.get(position);
 
-        Picasso.with(context.getApplicationContext()).load(c.getFoto()).error(R.mipmap.ic_launcher).fit().centerInside().into(photo);
+        if (c.getFoto().contains("http")) {
+            Picasso.with(context.getApplicationContext()).load(c.getFoto()).error(R.mipmap.ic_launcher).fit().centerInside().into(photo);
+        } else {
+            photo.setImageBitmap(StringToBitMap(c.getFoto()));
+        }
         contacto.setText(c.getUsuario());
         ultimoMensaje.setText((c.getUltimoMensaje()));
 
         return view;
+    }
+
+    public Bitmap StringToBitMap(String encodedString) {
+        try {
+            byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        } catch (Exception e) {
+            e.getMessage();
+            return null;
+        }
     }
 }

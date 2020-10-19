@@ -89,6 +89,8 @@ public class mensajes extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_mensajes, container, false);
         init();
+        Thread refresh = new Refresh();
+        refresh.start();
         return view;
     }
 
@@ -208,6 +210,20 @@ public class mensajes extends Fragment {
             return usuario.getString(4);
         } else {
             return "NA";
+        }
+    }
+
+    class Refresh extends Thread {
+
+        @Override
+        public void run() {
+
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            getMessages();
         }
     }
 }

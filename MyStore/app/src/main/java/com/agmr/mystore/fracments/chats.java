@@ -94,6 +94,8 @@ public class chats extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_chats, container, false);
         init();
+        Thread refresh = new Refresh();
+        refresh.start();
         return view;
     }
 
@@ -117,8 +119,6 @@ public class chats extends Fragment {
 
     public void getImgs() {
         if (getUsuRol().equalsIgnoreCase("cliente")) {
-
-            Toast.makeText(getContext(), getUsuRol(), Toast.LENGTH_LONG).show();
 
             Retrofit retrofit = new Retrofit.Builder().baseUrl(Local.IP_SERVER).addConverterFactory(GsonConverterFactory.create()).build();
             PersonaServicio service = retrofit.create(PersonaServicio.class);
@@ -273,6 +273,20 @@ public class chats extends Fragment {
             return usuario.getString(4);
         } else {
             return "NA";
+        }
+    }
+
+    class Refresh extends Thread {
+
+        @Override
+        public void run() {
+
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            getImgs();
         }
     }
 }

@@ -69,16 +69,12 @@
                 android:layout_weight="1"
                 android:orientation="vertical">
 
-                <Button
+                <ImageButton
                     android:id="@+id/btnFoto"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:background="@android:drawable/ic_menu_camera"
-                    android:padding="3dp"
-                    android:text="CLICK"
-                    android:textColor="#000000"
-                    android:textSize="25sp"
-                    android:textStyle="bold"></Button>
+                    android:textStyle="bold" />
 
             </LinearLayout>
 

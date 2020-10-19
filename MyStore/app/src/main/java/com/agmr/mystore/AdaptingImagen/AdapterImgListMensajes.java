@@ -3,7 +3,9 @@ package com.agmr.mystore.AdaptingImagen;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.database.Cursor;
-import android.graphics.Color;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,13 +54,21 @@ public class AdapterImgListMensajes extends ArrayAdapter {
             if (c.getCha_rol_emisor().equalsIgnoreCase("cliente")) {
                 photo.setBackgroundResource(R.drawable.tu);
             } else {
-                Picasso.with(context.getApplicationContext()).load(contacto.getFoto()).error(R.mipmap.ic_launcher).fit().centerInside().into(photo);
+                if (contacto.getFoto().contains("http")) {
+                    Picasso.with(context.getApplicationContext()).load(contacto.getFoto()).error(R.mipmap.ic_launcher).fit().centerInside().into(photo);
+                } else {
+                    photo.setImageBitmap(StringToBitMap(contacto.getFoto()));
+                }
             }
         } else {
             if (c.getCha_rol_emisor().equalsIgnoreCase("empleado")) {
                 photo.setBackgroundResource(R.drawable.tu);
             } else {
-                Picasso.with(context.getApplicationContext()).load(contacto.getFoto()).error(R.mipmap.ic_launcher).fit().centerInside().into(photo);
+                if (contacto.getFoto().contains("http")) {
+                    Picasso.with(context.getApplicationContext()).load(contacto.getFoto()).error(R.mipmap.ic_launcher).fit().centerInside().into(photo);
+                } else {
+                    photo.setImageBitmap(StringToBitMap(contacto.getFoto()));
+                }
             }
         }
 
@@ -74,6 +84,17 @@ public class AdapterImgListMensajes extends ArrayAdapter {
             return usuario.getString(4);
         } else {
             return "NA";
+        }
+    }
+
+    public Bitmap StringToBitMap(String encodedString) {
+        try {
+            byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        } catch (Exception e) {
+            e.getMessage();
+            return null;
         }
     }
 }
