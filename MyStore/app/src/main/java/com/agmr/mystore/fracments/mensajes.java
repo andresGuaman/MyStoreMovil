@@ -1,5 +1,6 @@
 package com.agmr.mystore.fracments;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ import com.agmr.mystore.Local;
 import com.agmr.mystore.R;
 import com.agmr.mystore.modelo.Chat;
 import com.agmr.mystore.modelo.Contacto;
+import com.agmr.mystore.servicio.CnnSQLite;
 import com.agmr.mystore.servicio.PostServiceChat;
 import com.squareup.picasso.Picasso;
 
@@ -132,7 +134,6 @@ public class mensajes extends Fragment {
                     assert response.body() != null;
 
                     messagesList.clear();
-
                     for (Chat c:response.body()) {
                         messagesList.add(new Chat(c.getCha_id(), c.getCha_mensajes(), c.getCha_imagenes(), c.getCha_rol_emisor()));
                     }
@@ -145,29 +146,68 @@ public class mensajes extends Fragment {
     }
 
     public void sendMessage() {
-        if (!txtMensaje.getText().toString().trim().isEmpty()) {
-            Retrofit retrofit = new Retrofit.Builder().baseUrl(Local.IP_SERVER).addConverterFactory(GsonConverterFactory.create()).build();
-            PostServiceChat service = retrofit.create(PostServiceChat.class);
-            Chat chat = new Chat(0, txtMensaje.getText().toString(), "NA", "cliente");
-            Call<Chat> call = service.insertChat(chat, contacto.getCli_id(), contacto.getEmp_id());
-            call.enqueue(new Callback<Chat>() {
-                @Override
-                public void onResponse(Call<Chat> call, Response<Chat> response) {
+        if (getUsuRol().equalsIgnoreCase("cliente")) {
+            if (!txtMensaje.getText().toString().trim().isEmpty()) {
+                Retrofit retrofit = new Retrofit.Builder().baseUrl(Local.IP_SERVER).addConverterFactory(GsonConverterFactory.create()).build();
+                PostServiceChat service = retrofit.create(PostServiceChat.class);
+                Chat chat = new Chat(0, txtMensaje.getText().toString(), "NA", "cliente");
+                Call<Chat> call = service.insertChat(chat, contacto.getCli_id(), contacto.getEmp_id());
+                call.enqueue(new Callback<Chat>() {
+                    @Override
+                    public void onResponse(Call<Chat> call, Response<Chat> response) {
 
-                    if (response.isSuccessful()) {
-                        Chat chat = response.body();
-                        if (chat != null) {
-                            txtMensaje.setText("");
-                            getMessages();
+                        if (response.isSuccessful()) {
+                            Chat chat = response.body();
+                            if (chat != null) {
+                                txtMensaje.setText("");
+                                getMessages();
+                            }
                         }
                     }
-                }
-                @Override
-                public void onFailure(Call<Chat> call, Throwable t) {
-                }
-            });
+                    @Override
+                    public void onFailure(Call<Chat> call, Throwable t) {
+                    }
+                });
+            } else {
+                Toast.makeText(getContext(), "Campo Vacío", Toast.LENGTH_SHORT).show();
+            }
         } else {
-            Toast.makeText(getContext(), "Campo Vacío", Toast.LENGTH_SHORT).show();
+            if (!txtMensaje.getText().toString().trim().isEmpty()) {
+                Retrofit retrofit = new Retrofit.Builder().baseUrl(Local.IP_SERVER).addConverterFactory(GsonConverterFactory.create()).build();
+                PostServiceChat service = retrofit.create(PostServiceChat.class);
+                Chat chat = new Chat(0, txtMensaje.getText().toString(), "NA", "empleado");
+                Call<Chat> call = service.insertChat(chat, contacto.getCli_id(), contacto.getEmp_id());
+                call.enqueue(new Callback<Chat>() {
+                    @Override
+                    public void onResponse(Call<Chat> call, Response<Chat> response) {
+
+                        if (response.isSuccessful()) {
+                            Chat chat = response.body();
+                            if (chat != null) {
+                                txtMensaje.setText("");
+                                getMessages();
+                            }
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<Chat> call, Throwable t) {
+                    }
+                });
+            } else {
+                Toast.makeText(getContext(), "Campo Vacío", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    public String getUsuRol() {
+        CnnSQLite cnn = new CnnSQLite(getContext());
+        Cursor usuario = cnn.selectUserByStatus();
+
+        if (usuario.getCount() > 0) {
+            usuario.moveToFirst();
+            return usuario.getString(4);
+        } else {
+            return "NA";
         }
     }
 }
