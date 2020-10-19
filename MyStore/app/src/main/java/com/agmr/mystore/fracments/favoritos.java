@@ -1,14 +1,30 @@
 package com.agmr.mystore.fracments;
 
+import android.content.Context;
+import android.database.Cursor;
 import android.os.Bundle;
 
+import androidx.appcompat.view.menu.ListMenuItemView;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.CursorAdapter;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.agmr.mystore.DescripcionProducto;
 import com.agmr.mystore.R;
+import com.agmr.mystore.modelo.Favoritos;
+import com.agmr.mystore.servicio.CnnSQLite;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.squareup.picasso.Picasso;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,6 +41,15 @@ public class favoritos extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private ListView listaf;
+    private ArrayAdapter<Favoritos> datosfavoritos;
+    private ArrayAdapter arrayAdapter;
+    String ocultabtn;
+    View vista;
+    View vista1;
+    Context context;
+    private TextView datoFalos;
 
     public favoritos() {
         // Required empty public constructor
@@ -58,9 +83,41 @@ public class favoritos extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favoritos, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        vista = inflater.inflate(R.layout.fragment_favoritos, container, false);
+        String esconde = "esconde";
+        final CnnSQLite conectar = new CnnSQLite(getContext());
+         Cursor cursor = conectar.selectFavouritesDETALL();
+
+        ImageView imga=(ImageView)vista.findViewById(R.id.img_producto);
+
+        String[] desde = new String[]{"fav_id","fav_pro_id", "fav_fot", "fav_des", "fav_precio"};
+        int[] hasta = new int[]{R.id.txt_datoFalso,R.id.txt_idProductoList,R.id.img_producto, R.id.txt_descrip, R.id.txt_precio};
+        final CursorAdapter adapter = new SimpleCursorAdapter(getContext(),
+                R.layout.list_productos, cursor, desde, hasta, 0);
+        final ListView listass = (ListView) vista.findViewById(R.id.lista_favoritos);
+        listass.setAdapter(adapter);
+
+       listass.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+           @Override
+           public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+               Cursor cursor1=(Cursor)listass.getItemAtPosition(i);
+               String idprod=cursor1.getString(0);
+               Boolean mensaje=conectar.deleteFavourite(idprod);
+               if (mensaje==true){
+                   adapter.swapCursor(conectar.selectFavouritesDETALL());
+                   listass.setAdapter(adapter);
+                   Toast.makeText(getContext(),"Producto eliminado"+mensaje,Toast.LENGTH_SHORT).show();
+               }else{
+                   Toast.makeText(getContext(),"No se elimino el producto"+mensaje,Toast.LENGTH_SHORT).show();
+               }
+
+               return false;
+           }
+       });
+
+
+
+        return vista;
     }
 }

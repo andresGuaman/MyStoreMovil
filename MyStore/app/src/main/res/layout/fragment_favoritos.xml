@@ -5,8 +5,12 @@
     android:layout_height="match_parent"
     tools:context=".fracments.favoritos">
 
-    <LinearLayout
+
+    <ListView
+        android:id="@+id/lista_favoritos"
         android:layout_width="match_parent"
-        android:layout_height="565dp"
-        android:orientation="vertical"></LinearLayout>
+        android:layout_height="669dp" />
+
+
+
 </FrameLayout>

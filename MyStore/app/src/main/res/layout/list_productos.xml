@@ -28,9 +28,10 @@
 
     <TextView
         android:id="@+id/txt_descrip"
-        android:layout_width="314dp"
+        android:layout_width="294dp"
         android:layout_height="70dp"
         android:text="TextView"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/view5"
         app:layout_constraintEnd_toEndOf="@+id/view5"
         app:layout_constraintHorizontal_bias="0.0"
@@ -40,27 +41,27 @@
 
     <TextView
         android:id="@+id/txt_precio"
-        android:layout_width="95dp"
-        android:layout_height="70dp"
+        android:layout_width="87dp"
+        android:layout_height="66dp"
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="@+id/view5"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.993"
+        app:layout_constraintHorizontal_bias="0.948"
         app:layout_constraintStart_toStartOf="@+id/view5"
         app:layout_constraintTop_toTopOf="@+id/img_producto"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.972" />
 
     <ImageView
         android:id="@+id/img_producto"
-        android:layout_width="412dp"
-        android:layout_height="149dp"
+        android:layout_width="377dp"
+        android:layout_height="142dp"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="@+id/view5"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.529"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/view5"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_bias="0.027"
         tools:srcCompat="@tools:sample/avatars" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -81,10 +82,31 @@
 
     <View
         android:id="@+id/view5"
-        android:layout_width="413dp"
-        android:layout_height="220dp"
+        android:layout_width="384dp"
+        android:layout_height="214dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txt_idProductoList"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="@+id/view5"
+        app:layout_constraintEnd_toEndOf="@+id/view5"
+        app:layout_constraintHorizontal_bias="0.949"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/img_producto"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/txt_datoFalso"
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        app:layout_constraintBottom_toBottomOf="@+id/view5"
+        app:layout_constraintEnd_toEndOf="@+id/btn_carrit"
+        app:layout_constraintStart_toStartOf="@+id/view5"
+        app:layout_constraintTop_toTopOf="@+id/img_producto" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
